@@ -8,7 +8,8 @@
     :root {
       --border: #cfd4dc;
       --bg-head: #f0f3f8;
-      --bg-block: #fafbfc;
+      --btn: #3d5a80;
+      --btn-hover: #2f4a66;
     }
     body {
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -51,19 +52,85 @@
     }
     .col-date { width: 11%; }
     .col-who { width: 22%; }
-    .col-link { width: 14%; }
-    .col-sum { width: 53%; }
-    table.q td a {
-      color: #3d5a80;
+    .col-link { width: 18%; }
+    .col-sum { width: 49%; }
+    /* Кнопка перехода на страницу разбора */
+    a.btn-open {
+      display: inline-block;
+      padding: 8px 14px;
+      background: var(--btn);
+      color: #fff !important;
+      border-radius: 8px;
+      font-size: 13px;
       font-weight: 600;
       text-decoration: none;
+      border: 1px solid var(--btn-hover);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+      line-height: 1.2;
+      text-align: center;
+      white-space: nowrap;
     }
-    table.q td a:hover { text-decoration: underline; }
+    a.btn-open:hover {
+      background: var(--btn-hover);
+      text-decoration: none;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+    a.btn-open:active {
+      transform: translateY(1px);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    a.btn-open .btn-sub {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      opacity: 0.92;
+      margin-top: 3px;
+    }
+    /* Сворачиваемый краткий вывод */
+    details.sum-details {
+      margin: 0;
+    }
+    details.sum-details summary {
+      cursor: pointer;
+      list-style: none;
+      font-size: 13px;
+      line-height: 1.35;
+      color: #1a1a1a;
+      user-select: none;
+    }
+    details.sum-details summary::-webkit-details-marker {
+      display: none;
+    }
+    details.sum-details summary::before {
+      content: "▸ ";
+      display: inline-block;
+      color: var(--btn);
+      font-weight: 700;
+      width: 1em;
+      transition: transform 0.15s ease;
+    }
+    details.sum-details[open] summary::before {
+      transform: rotate(90deg);
+    }
+    .sum-preview {
+      font-weight: 500;
+    }
+    .sum-hint {
+      color: #666;
+      font-weight: 400;
+      font-size: 12px;
+    }
+    .sum-body {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #c5ccd6;
+    }
     .summary-list {
       margin: 0;
       padding-left: 1.1em;
     }
-    .summary-list li { margin-bottom: 4px; }
+    .summary-list li { margin-bottom: 6px; }
+    .summary-list li:last-child { margin-bottom: 0; }
     .muted {
       color: #666;
       font-size: 12px;
@@ -73,14 +140,14 @@
 </head>
 <body>
   <h1>Кастдевы</h1>
-  <p class="lead">Список созвонов с клиентами: ссылка на полный разбор и короткий вывод для быстрого просмотра.</p>
+  <p class="lead">Список созвонов: переход на полный разбор и сворачиваемый краткий вывод.</p>
 
   <table class="q">
     <thead>
       <tr>
         <th class="col-date">Дата</th>
         <th class="col-who">Клиент / контакт</th>
-        <th class="col-link">Разбор</th>
+        <th class="col-link">Полный разбор</th>
         <th class="col-sum">Краткий вывод</th>
       </tr>
     </thead>
@@ -88,19 +155,29 @@
       <tr>
         <td class="col-date">08.04.2026</td>
         <td class="col-who">Дарс (Dars IT-A)<br />Роман, head of digital</td>
-        <td class="col-link"><a href="kastdev-roman-dars-2026-04-08.html">Открыть</a></td>
+        <td class="col-link">
+          <a class="btn-open" href="kastdev-roman-dars-2026-04-08.html">Перейти к разбору<span class="btn-sub">откроется отдельная страница</span></a>
+        </td>
         <td class="col-sum">
-          <ul class="summary-list">
-            <li>Результаты скачут, не всегда понятно «куда идём»; при просадке хочется <strong>ясного плана и шагов</strong>, а не ожидания недели.</li>
-            <li><strong>Удобно:</strong> еженедельные созвоны; <strong>надо:</strong> уйти от тяжёлого Excel к дашборду, недельные срезы сохранить.</li>
-            <li><strong>Ценят</strong> Юлю и открытость; просят <strong>больше инициативы</strong> с нашей стороны (рынок, конкуренты).</li>
-            <li><strong>Три направления для агентства:</strong> план при просадке; не класть много правок в рекламу разом; единый понятный отчёт.</li>
-          </ul>
+          <details class="sum-details">
+            <summary>
+              <span class="sum-preview">Просадки без ясного плана · созвоны ок · Excel → дашборд · три темы для агентства</span>
+              <span class="sum-hint"> — развернуть</span>
+            </summary>
+            <div class="sum-body">
+              <ul class="summary-list">
+                <li>Результаты скачут, не всегда понятно «куда идём»; при просадке хочется <strong>ясного плана и шагов</strong>, а не ожидания недели.</li>
+                <li><strong>Удобно:</strong> еженедельные созвоны; <strong>надо:</strong> уйти от тяжёлого Excel к дашборду, недельные срезы сохранить.</li>
+                <li><strong>Ценят</strong> Юлю и открытость; просят <strong>больше инициативы</strong> с нашей стороны (рынок, конкуренты).</li>
+                <li><strong>Три направления для агентства:</strong> план при просадке; не класть много правок в рекламу разом; единый понятный отчёт.</li>
+              </ul>
+            </div>
+          </details>
         </td>
       </tr>
     </tbody>
   </table>
 
-  <p class="muted">Новый кастдев — добавьте строку в эту таблицу и положите рядом отдельный HTML-файл (как у Романа).</p>
+  <p class="muted">Новый кастдев — строка в таблице + отдельный HTML; в колонке вывода скопируйте блок <code>&lt;details class="sum-details"&gt;…</code> и подправьте превью.</p>
 </body>
 </html>
