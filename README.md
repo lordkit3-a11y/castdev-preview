@@ -1,20 +1,22 @@
-# Кастдев — превью для GitHub Pages
+# Кастдевы — превью для GitHub Pages
 
-Статический сайт: один файл `index.html` (копия отчёта по созвону).
+- **`index.html`** — главная: таблица всех кастдевов (дата, контакт, ссылка, краткий вывод).
+- **`kastdev-roman-dars-2026-04-08.html`** — полный разбор по Роману (Дарс).
 
-## После первого push
+Локальный «черновик» того же разбора в корне воркспейса: `кастдев_Роман_превью.html` — при изменениях можно копировать в файл Романа здесь.
 
-1. На GitHub: **Settings → Pages**
-2. **Source:** Deploy from a branch → **main** → **/ (root)** → Save
-3. Ссылка будет: `https://ВАШ_ЛОГИН.github.io/ИМЯ_РЕПО/`
+## После push
+
+**Settings → Pages** → branch **main**, folder **/** → Save.  
+Откроется главная: `https://ВАШ_ЛОГИН.github.io/ИМЯ_РЕПО/`
 
 ## Обновление
 
-Правите `index.html` в Cursor (или копируйте сюда из `кастдев_Роман_превью.html`), затем:
-
 ```bash
 cd castdev-public
-git add index.html
-git commit -m "Обновление"
+git add index.html kastdev-roman-dars-2026-04-08.html
+git commit -m "Обновление кастдева"
 git push
 ```
+
+Новый кастдев: новый `.html` + строка в таблице в `index.html`.
