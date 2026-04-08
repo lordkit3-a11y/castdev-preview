@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Кастдевы — список</title>
+  <style>
+    :root {
+      --border: #cfd4dc;
+      --bg-head: #f0f3f8;
+      --bg-block: #fafbfc;
+    }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-size: 14px;
+      line-height: 1.45;
+      color: #1a1a1a;
+      max-width: 960px;
+      margin: 24px auto;
+      padding: 0 16px 48px;
+    }
+    h1 {
+      font-size: 1.35rem;
+      margin-bottom: 0.35rem;
+    }
+    .lead {
+      color: #555;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    table.q {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+      table-layout: fixed;
+    }
+    table.q th,
+    table.q td {
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      vertical-align: top;
+      word-wrap: break-word;
+    }
+    table.q th {
+      background: var(--bg-head);
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: #444;
+    }
+    .col-date { width: 11%; }
+    .col-who { width: 22%; }
+    .col-link { width: 14%; }
+    .col-sum { width: 53%; }
+    table.q td a {
+      color: #3d5a80;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    table.q td a:hover { text-decoration: underline; }
+    .summary-list {
+      margin: 0;
+      padding-left: 1.1em;
+    }
+    .summary-list li { margin-bottom: 4px; }
+    .muted {
+      color: #666;
+      font-size: 12px;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Кастдевы</h1>
+  <p class="lead">Список созвонов с клиентами: ссылка на полный разбор и короткий вывод для быстрого просмотра.</p>
+
+  <table class="q">
+    <thead>
+      <tr>
+        <th class="col-date">Дата</th>
+        <th class="col-who">Клиент / контакт</th>
+        <th class="col-link">Разбор</th>
+        <th class="col-sum">Краткий вывод</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="col-date">08.04.2026</td>
+        <td class="col-who">Дарс (Dars IT-A)<br />Роман, head of digital</td>
+        <td class="col-link"><a href="kastdev-roman-dars-2026-04-08.html">Открыть</a></td>
+        <td class="col-sum">
+          <ul class="summary-list">
+            <li>Результаты скачут, не всегда понятно «куда идём»; при просадке хочется <strong>ясного плана и шагов</strong>, а не ожидания недели.</li>
+            <li><strong>Удобно:</strong> еженедельные созвоны; <strong>надо:</strong> уйти от тяжёлого Excel к дашборду, недельные срезы сохранить.</li>
+            <li><strong>Ценят</strong> Юлю и открытость; просят <strong>больше инициативы</strong> с нашей стороны (рынок, конкуренты).</li>
+            <li><strong>Три направления для агентства:</strong> план при просадке; не класть много правок в рекламу разом; единый понятный отчёт.</li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="muted">Новый кастдев — добавьте строку в эту таблицу и положите рядом отдельный HTML-файл (как у Романа).</p>
+</body>
+</html>
