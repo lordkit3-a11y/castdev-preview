@@ -52,39 +52,49 @@
     }
     .col-date { width: 11%; }
     .col-who { width: 22%; }
-    .col-link { width: 18%; }
-    .col-sum { width: 49%; }
-    /* Кнопка перехода на страницу разбора */
+    .col-link { width: 20%; }
+    .col-sum { width: 47%; }
+    /* Ячейка с кнопкой: не даём содержимому вылезать в соседние колонки */
+    td.col-link {
+      overflow: hidden;
+      vertical-align: middle;
+    }
+    td.col-link .btn-wrap {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
     a.btn-open {
-      display: inline-block;
-      padding: 8px 14px;
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: 8px 10px;
       background: var(--btn);
       color: #fff !important;
-      border-radius: 8px;
-      font-size: 13px;
+      border-radius: 6px;
+      font-size: 12px;
       font-weight: 600;
       text-decoration: none;
       border: 1px solid var(--btn-hover);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-      line-height: 1.2;
+      line-height: 1.25;
       text-align: center;
-      white-space: nowrap;
+      white-space: normal;
+      overflow-wrap: break-word;
+      hyphens: auto;
+      -webkit-hyphens: auto;
     }
     a.btn-open:hover {
       background: var(--btn-hover);
       text-decoration: none;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+    a.btn-open:focus-visible {
+      outline: 2px solid #7eb8ff;
+      outline-offset: 2px;
     }
     a.btn-open:active {
-      transform: translateY(1px);
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    }
-    a.btn-open .btn-sub {
-      display: block;
-      font-size: 11px;
-      font-weight: 500;
-      opacity: 0.92;
-      margin-top: 3px;
+      opacity: 0.95;
     }
     /* Сворачиваемый краткий вывод */
     details.sum-details {
@@ -156,7 +166,7 @@
         <td class="col-date">08.04.2026</td>
         <td class="col-who">Дарс (Dars IT-A)<br />Роман, head of digital</td>
         <td class="col-link">
-          <a class="btn-open" href="kastdev-roman-dars-2026-04-08.html">Перейти к разбору<span class="btn-sub">откроется отдельная страница</span></a>
+          <span class="btn-wrap"><a class="btn-open" href="kastdev-roman-dars-2026-04-08.html">Открыть кастдев</a></span>
         </td>
         <td class="col-sum">
           <details class="sum-details">
