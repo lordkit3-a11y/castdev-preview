@@ -1,0 +1,335 @@
+/* Синхронизация «взяли в работу» между index и страницами кастдева (localStorage) */
+
+.task-track {
+  position: relative;
+}
+
+.task-check-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 14px 20px;
+  margin-bottom: 10px;
+}
+
+.task-track .task-pickup {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2e5d34;
+  cursor: pointer;
+  user-select: none;
+}
+
+.task-track .task-pickup-present {
+  color: #1b5e20;
+}
+
+.task-track .task-pickup input {
+  margin-top: 2px;
+  width: 1.05em;
+  height: 1.05em;
+  accent-color: #43a047;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.task-track .task-pickup-present input {
+  accent-color: #2e7d32;
+}
+
+/* Взяли в работу — светло-зелёный */
+.task-track.task-in-work:not(.task-ready-client) {
+  background: #e8f5e9 !important;
+  border-color: #a5d6a7 !important;
+  box-shadow: inset 0 0 0 1px rgba(76, 175, 80, 0.2);
+}
+
+.task-track.task-in-work.once:not(.task-ready-client) {
+  background: #e8f5e9 !important;
+  border-left-color: #66bb6a !important;
+}
+
+/* Готово к презентации клиенту — насыщенный зелёный */
+.task-track.task-ready-client {
+  background: #aed581 !important;
+  border-color: #689f38 !important;
+  box-shadow: inset 0 0 0 2px rgba(46, 125, 50, 0.35);
+}
+
+.task-track.task-ready-client.once {
+  background: #aed581 !important;
+  border-left-color: #558b2f !important;
+}
+
+/* Главный экран: все задачи */
+.castdev-tasks-section {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 2px solid #cfd4dc;
+}
+
+.castdev-tasks-section h2 {
+  font-size: 1.1rem;
+  margin: 0 0 6px;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.castdev-tasks-section .castdev-tasks-lead {
+  color: #555;
+  font-size: 13px;
+  margin: 0 0 12px;
+  line-height: 1.45;
+}
+
+.castdev-git-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px 14px;
+  margin: 0 0 20px;
+  padding: 10px 12px;
+  background: #f4f7fb;
+  border: 1px solid #dde5ef;
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #444;
+}
+
+.castdev-git-bar-text {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.castdev-git-bar-text code {
+  font-size: 11px;
+  background: #e8ecf2;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+button.castdev-export-btn {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 12px;
+  background: #3d5a80;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+button.castdev-export-btn:hover {
+  background: #2f4a66;
+}
+
+button.castdev-export-btn:focus-visible {
+  outline: 2px solid #7eb8ff;
+  outline-offset: 2px;
+}
+
+.castdev-git-bar--page {
+  margin-top: 28px;
+}
+
+.castdev-task-group {
+  margin-bottom: 22px;
+}
+
+.castdev-task-group h3 {
+  font-size: 0.95rem;
+  margin: 0 0 10px;
+  padding: 6px 0;
+  color: #3d5a80;
+  font-weight: 700;
+  border-bottom: 1px solid #dde3ea;
+}
+
+.castdev-task-group h3 a {
+  color: #3d5a80;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.castdev-task-group h3 a:hover {
+  text-decoration: underline;
+}
+
+.task-global-row {
+  border: 1px solid #cfd4dc;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  background: #fafcfb;
+}
+
+.task-global-row.task-in-work:not(.task-ready-client) {
+  background: #e8f5e9;
+  border-color: #a5d6a7;
+  box-shadow: inset 0 0 0 1px rgba(76, 175, 80, 0.15);
+}
+
+.task-global-row.task-ready-client {
+  background: #aed581;
+  border-color: #689f38;
+  box-shadow: inset 0 0 0 2px rgba(46, 125, 50, 0.3);
+}
+
+.task-global-row .task-check-row {
+  margin-bottom: 8px;
+}
+
+.task-global-meta {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #5c6f82;
+  margin-bottom: 6px;
+}
+
+.task-global-text {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #1a1a1a;
+  margin-top: 4px;
+}
+
+.task-global-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-left: 8px;
+  vertical-align: middle;
+  background: #eceff3;
+  color: #5c6f82;
+}
+
+.task-global-badge.extra {
+  background: #fff8e6;
+  color: #7a5f00;
+}
+
+/* Название задачи + ссылка Аспро (редактирование по кнопке) */
+.task-fields-inline {
+  margin: 10px 0 12px;
+  padding: 10px 0 0;
+  border-top: 1px dashed #d5dbe3;
+}
+
+.task-meta-field {
+  margin-bottom: 12px;
+}
+
+.task-meta-field:last-child {
+  margin-bottom: 0;
+}
+
+.task-meta-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 10px;
+  margin-bottom: 4px;
+}
+
+.task-meta-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #5c6f82;
+}
+
+button.task-field-edit {
+  font-family: inherit;
+  font-size: 10px;
+  line-height: 1.2;
+  font-weight: 600;
+  color: #3d6db5;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+button.task-field-edit:hover {
+  color: #2a5299;
+}
+
+button.task-field-edit:focus-visible {
+  outline: 2px solid #7eb8ff;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.task-meta-field.is-editing .task-meta-view {
+  display: none;
+}
+
+.task-meta-field .task-meta-input {
+  display: none;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  font: inherit;
+  font-size: 14px;
+  padding: 6px 8px;
+  border: 1px solid #9db4d0;
+  border-radius: 6px;
+  margin-top: 2px;
+}
+
+.task-meta-field.is-editing .task-meta-input {
+  display: block;
+}
+
+.task-title-display {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: #1a1a1a;
+  user-select: text;
+  cursor: text;
+}
+
+.task-meta-view-aspro {
+  font-size: 14px;
+  line-height: 1.45;
+  min-height: 1.35em;
+}
+
+.task-aspro-link {
+  color: #3d6db5;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  word-break: break-all;
+}
+
+.task-aspro-link:hover {
+  color: #2a5299;
+}
+
+.task-aspro-placeholder {
+  font-size: 13px;
+  color: #888;
+  font-weight: 500;
+  user-select: text;
+}
