@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Кастдевы — список</title>
+  <link rel="stylesheet" href="Служебные/castdev-tasks.css" />
+  <style>
+    :root {
+      --border: #cfd4dc;
+      --bg-head: #f0f3f8;
+      --btn: #3d5a80;
+      --btn-hover: #2f4a66;
+    }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-size: 14px;
+      line-height: 1.45;
+      color: #1a1a1a;
+      max-width: 960px;
+      margin: 24px auto;
+      padding: 0 16px 48px;
+    }
+    h1 {
+      font-size: 1.35rem;
+      margin-bottom: 0.35rem;
+    }
+    .lead {
+      color: #555;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    table.q {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+      table-layout: fixed;
+    }
+    table.q th,
+    table.q td {
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      vertical-align: top;
+      word-wrap: break-word;
+    }
+    table.q th {
+      background: var(--bg-head);
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: #444;
+    }
+    .col-date { width: 11%; }
+    .col-who { width: 22%; }
+    .col-link { width: 20%; }
+    .col-sum { width: 47%; }
+    /* Ячейка с кнопкой: не даём содержимому вылезать в соседние колонки */
+    td.col-link {
+      overflow: hidden;
+      vertical-align: middle;
+    }
+    td.col-link .btn-wrap {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    a.btn-open {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: 8px 10px;
+      background: var(--btn);
+      color: #fff !important;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid var(--btn-hover);
+      line-height: 1.25;
+      text-align: center;
+      white-space: normal;
+      overflow-wrap: break-word;
+      hyphens: auto;
+      -webkit-hyphens: auto;
+    }
+    a.btn-open:hover {
+      background: var(--btn-hover);
+      text-decoration: none;
+    }
+    a.btn-open:focus-visible {
+      outline: 2px solid #7eb8ff;
+      outline-offset: 2px;
+    }
+    a.btn-open:active {
+      opacity: 0.95;
+    }
+    /* Сворачиваемый краткий вывод */
+    details.sum-details {
+      margin: 0;
+    }
+    details.sum-details summary {
+      cursor: pointer;
+      list-style: none;
+      font-size: 13px;
+      line-height: 1.35;
+      color: #1a1a1a;
+      user-select: none;
+    }
+    details.sum-details summary::-webkit-details-marker {
+      display: none;
+    }
+    details.sum-details summary::before {
+      content: "▸ ";
+      display: inline-block;
+      color: var(--btn);
+      font-weight: 700;
+      width: 1em;
+      transition: transform 0.15s ease;
+    }
+    details.sum-details[open] summary::before {
+      transform: rotate(90deg);
+    }
+    .sum-preview {
+      font-weight: 500;
+    }
+    .sum-hint {
+      color: #666;
+      font-weight: 400;
+      font-size: 12px;
+    }
+    .sum-body {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #c5ccd6;
+    }
+    .summary-list {
+      margin: 0;
+      padding-left: 1.1em;
+    }
+    .summary-list li { margin-bottom: 6px; }
+    .summary-list li:last-child { margin-bottom: 0; }
+    .muted {
+      color: #666;
+      font-size: 12px;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Кастдевы</h1>
+  <p class="lead">Созвоны с клиентами: краткий вывод в таблице и полный разбор по кнопке.</p>
+
+  <table class="q">
+    <thead>
+      <tr>
+        <th class="col-date">Дата</th>
+        <th class="col-who">Клиент / контакт</th>
+        <th class="col-link">Полный разбор</th>
+        <th class="col-sum">Краткий вывод</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="col-date">08.04.2026</td>
+        <td class="col-who">Дарс (Dars IT-A)<br />Роман, head of digital</td>
+        <td class="col-link">
+          <span class="btn-wrap"><a class="btn-open" href="kastdev-roman-dars-2026-04-08.html">Открыть кастдев</a></span>
+        </td>
+        <td class="col-sum">
+          <details class="sum-details">
+            <summary>
+              <span class="sum-preview">Просадки без ясного плана · созвоны ок · Excel → дашборд · три темы для агентства</span>
+              <span class="sum-hint"> — развернуть</span>
+            </summary>
+            <div class="sum-body">
+              <ul class="summary-list">
+                <li>Результаты скачут, не всегда понятно «куда идём»; при просадке хочется <strong>ясного плана и шагов</strong>, а не ожидания недели.</li>
+                <li><strong>Удобно:</strong> еженедельные созвоны; <strong>надо:</strong> уйти от тяжёлого Excel к дашборду, недельные срезы сохранить.</li>
+                <li><strong>Ценят</strong> Юлю и открытость; просят <strong>больше инициативы</strong> с нашей стороны (рынок, конкуренты).</li>
+                <li><strong>Три направления для агентства:</strong> план при просадке; не класть много правок в рекламу разом; единый понятный отчёт.</li>
+              </ul>
+            </div>
+          </details>
+        </td>
+      </tr>
+      <tr>
+        <td class="col-date">10.04.2026</td>
+        <td class="col-who">SSK<br />Ольга Римская</td>
+        <td class="col-link">
+          <span class="btn-wrap"><a class="btn-open" href="kastdev-ssk-olga-2026-04-10.html">Открыть кастдев</a></span>
+        </td>
+        <td class="col-sum">
+          <details class="sum-details">
+            <summary>
+              <span class="sum-preview">Сложный регион · план на месяц часто не закрывается · повтор запросов к клиенту · отчёт и дашборд</span>
+              <span class="sum-hint"> — развернуть</span>
+            </summary>
+            <div class="sum-body">
+              <ul class="summary-list">
+                <li>На проекте с <strong>середины марта</strong>; лиды — да, но результат пока <strong>не очень устраивает</strong>; регион и контексты сложные.</li>
+                <li><strong>Трение:</strong> часто не выполняется месячный медиаплан; запросы к клиенту на то, что у них <strong>нет ресурса</strong> (пример — Метрика и Битрикс), повторяются.</li>
+                <li><strong>Ценят:</strong> на связи, инициативность; <strong>нет «вау»-момента</strong>; хотят выполнение планов и <strong>сильную гипотезу</strong> с вашей стороны.</li>
+                <li><strong>Отчёт</strong> по затратам пользуются; ждут эволюции (дашборд, срезы); медиаплан ок; <strong>готовы рекомендовать</strong> за опыт в недвижимости.</li>
+              </ul>
+            </div>
+          </details>
+        </td>
+      </tr>
+      <tr>
+        <td class="col-date">16.04.2026</td>
+        <td class="col-who">Ec.ru<br />Дарья</td>
+        <td class="col-link">
+          <span class="btn-wrap"><a class="btn-open" href="03_Кастдев_Дарья_Ec.ru.html">Открыть кастдев</a></span>
+        </td>
+        <td class="col-sum">
+          <details class="sum-details">
+            <summary>
+              <span class="sum-preview">Результат просел · сильный прошлый кредит доверия · нужны мини-апдейты · новый формат встреч понравился</span>
+              <span class="sum-hint"> — развернуть</span>
+            </summary>
+            <div class="sum-body">
+              <ul class="summary-list">
+                <li>Сейчас лидов больше, но <strong>целевых больше не стало</strong>; результат по качеству лида клиентку пока <strong>не устраивает</strong>.</li>
+                <li><strong>Ценят:</strong> полный цикл, широту услуг, готовность тестировать новые направления и снимать с клиента лишнюю работу.</li>
+                <li><strong>Главный запрос:</strong> не ждать еженедельного созвона, а давать <strong>короткие апдейты в чат</strong> между встречами.</li>
+                <li><strong>Нравится новый формат встреч:</strong> единый файл, summary, понятная статистика; хотят закрепить это как норму.</li>
+              </ul>
+            </div>
+          </details>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section class="castdev-tasks-section" id="zadachi-po-kastdevam">
+    <h2>Задачи по кастдевам</h2>
+    <p class="castdev-tasks-lead">
+      Три направления из блока «Что улучшить в работе агентства» плюс второстепенные пункты («На заметку»).
+    </p>
+    <p class="castdev-git-bar">
+      <button type="button" class="castdev-export-btn" id="castdev-export-git">Скачать castdev-state.json для Git</button>
+      <span class="castdev-git-bar-text">Общее состояние (галочки, названия, ссылки) лежит в файле <code>castdev-state.json</code> в репозитории. После правок скачайте файл, замените им старый в папке сайта, сделайте commit и push.</span>
+    </p>
+
+    <div class="castdev-task-group">
+      <h3><a href="kastdev-roman-dars-2026-04-08.html">Дарс (Dars IT-A) · 08.04.2026</a></h3>
+
+      <div class="task-global-row task-track" data-task-id="task-dars-n1" data-default-title="Письменный план при просадке">
+        <div class="task-check-row">
+        <label class="task-pickup">
+          <input type="checkbox" class="task-cb" data-task-id="task-dars-n1" />
+          <span>Взяли в работу</span>
+        </label>
+        <label class="task-pickup task-pickup-present">
+          <input type="checkbox" class="task-present-cb" data-task-id="task-dars-n1" />
+          <span>Применили, можно презентовать клиенту</span>
+        </label>
+        </div>
+        <div class="task-fields-inline">
+          <div class="task-meta-field" data-meta-field="title">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Название задачи</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view"><span class="task-title-display"></span></div>
+            <input type="text" class="task-meta-input task-meta-input-title" autocomplete="off" />
+          </div>
+          <div class="task-meta-field" data-meta-field="aspro">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Ссылка на Аспро</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view task-meta-view-aspro">
+              <a class="task-aspro-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Открыть в Аспро</a>
+              <span class="task-aspro-placeholder">Не указано</span>
+            </div>
+            <input type="text" class="task-meta-input task-meta-input-aspro" autocomplete="off" placeholder="Вставьте URL из Аспро" />
+          </div>
+        </div>
+        <div class="task-global-text">Когда цифры проседают — давать заказчику понятный план: что делаем, зачем и в какие сроки, а не откладывать всё на «посмотрим на следующей неделе».</div>
+      </div>
+
+      <div class="task-global-row task-track" data-task-id="task-dars-n2" data-default-title="Одно сильное изменение за раз">
+        <div class="task-check-row">
+        <label class="task-pickup">
+          <input type="checkbox" class="task-cb" data-task-id="task-dars-n2" />
+          <span>Взяли в работу</span>
+        </label>
+        <label class="task-pickup task-pickup-present">
+          <input type="checkbox" class="task-present-cb" data-task-id="task-dars-n2" />
+          <span>Применили, можно презентовать клиенту</span>
+        </label>
+        </div>
+        <div class="task-fields-inline">
+          <div class="task-meta-field" data-meta-field="title">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Название задачи</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view"><span class="task-title-display"></span></div>
+            <input type="text" class="task-meta-input task-meta-input-title" autocomplete="off" />
+          </div>
+          <div class="task-meta-field" data-meta-field="aspro">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Ссылка на Аспро</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view task-meta-view-aspro">
+              <a class="task-aspro-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Открыть в Аспро</a>
+              <span class="task-aspro-placeholder">Не указано</span>
+            </div>
+            <input type="text" class="task-meta-input task-meta-input-aspro" autocomplete="off" placeholder="Вставьте URL из Аспро" />
+          </div>
+        </div>
+        <div class="task-global-text">Не накладывать много правок в рекламе и на сайте одновременно — иначе непонятно, что сработало, и можно надолго потерять лиды.</div>
+      </div>
+
+      <div class="task-global-row task-track" data-task-id="task-dars-n3" data-default-title="Дашборд вместо Excel, недели сохранить">
+        <div class="task-check-row">
+        <label class="task-pickup">
+          <input type="checkbox" class="task-cb" data-task-id="task-dars-n3" />
+          <span>Взяли в работу</span>
+        </label>
+        <label class="task-pickup task-pickup-present">
+          <input type="checkbox" class="task-present-cb" data-task-id="task-dars-n3" />
+          <span>Применили, можно презентовать клиенту</span>
+        </label>
+        </div>
+        <div class="task-fields-inline">
+          <div class="task-meta-field" data-meta-field="title">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Название задачи</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view"><span class="task-title-display"></span></div>
+            <input type="text" class="task-meta-input task-meta-input-title" autocomplete="off" />
+          </div>
+          <div class="task-meta-field" data-meta-field="aspro">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Ссылка на Аспро</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view task-meta-view-aspro">
+              <a class="task-aspro-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Открыть в Аспро</a>
+              <span class="task-aspro-placeholder">Не указано</span>
+            </div>
+            <input type="text" class="task-meta-input task-meta-input-aspro" autocomplete="off" placeholder="Вставьте URL из Аспро" />
+          </div>
+        </div>
+        <div class="task-global-text">Перевести отчёт из тяжёлого Excel в удобный экран (дашборд), но оставить смотреть динамику по неделям — без этого клиенту неудобно.</div>
+      </div>
+
+      <div class="task-global-row task-track" data-task-id="task-dars-extra" data-default-title="Инициативы и разбор ВК Хабаровск">
+        <div class="task-check-row">
+        <label class="task-pickup">
+          <input type="checkbox" class="task-cb" data-task-id="task-dars-extra" />
+          <span>Взяли в работу</span>
+        </label>
+        <label class="task-pickup task-pickup-present">
+          <input type="checkbox" class="task-present-cb" data-task-id="task-dars-extra" />
+          <span>Применили, можно презентовать клиенту</span>
+        </label>
+        </div>
+        <div class="task-global-meta">На заметку<span class="task-global-badge extra">второстепенно</span></div>
+        <div class="task-fields-inline">
+          <div class="task-meta-field" data-meta-field="title">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Название задачи</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view"><span class="task-title-display"></span></div>
+            <input type="text" class="task-meta-input task-meta-input-title" autocomplete="off" />
+          </div>
+          <div class="task-meta-field" data-meta-field="aspro">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Ссылка на Аспро</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view task-meta-view-aspro">
+              <a class="task-aspro-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Открыть в Аспро</a>
+              <span class="task-aspro-placeholder">Не указано</span>
+            </div>
+            <input type="text" class="task-meta-input task-meta-input-aspro" autocomplete="off" placeholder="Вставьте URL из Аспро" />
+          </div>
+        </div>
+        <div class="task-global-text">Чаще приходить к клиенту с идеями сами: разбор конкурентов, рынок, полезные выжимки. Отдельно разобрать ситуацию с ВКонтакте в Хабаровске.</div>
+      </div>
+    </div>
+
+    <div class="castdev-task-group">
+      <h3><a href="kastdev-ssk-olga-2026-04-10.html">SSK · 10.04.2026 · Ольга Римская</a></h3>
+
+      <div class="task-global-row task-track" data-task-id="task-ssk-n1" data-default-title="Разбор невыполнения медиаплана">
+        <div class="task-check-row">
+        <label class="task-pickup">
+          <input type="checkbox" class="task-cb" data-task-id="task-ssk-n1" />
+          <span>Взяли в работу</span>
+        </label>
+        <label class="task-pickup task-pickup-present">
+          <input type="checkbox" class="task-present-cb" data-task-id="task-ssk-n1" />
+          <span>Применили, можно презентовать клиенту</span>
+        </label>
+        </div>
+        <div class="task-fields-inline">
+          <div class="task-meta-field" data-meta-field="title">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Название задачи</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view"><span class="task-title-display"></span></div>
+            <input type="text" class="task-meta-input task-meta-input-title" autocomplete="off" />
+          </div>
+          <div class="task-meta-field" data-meta-field="aspro">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Ссылка на Аспро</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view task-meta-view-aspro">
+              <a class="task-aspro-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Открыть в Аспро</a>
+              <span class="task-aspro-placeholder">Не указано</span>
+            </div>
+            <input type="text" class="task-meta-input task-meta-input-aspro" autocomplete="off" placeholder="Вставьте URL из Аспро" />
+          </div>
+        </div>
+        <div class="task-global-text">Когда медиаплан на месяц не выполняется — фиксировать причины и ожидания так, чтобы не было ощущения «объясняем не тем, что мешает продажам».</div>
+      </div>
+
+      <div class="task-global-row task-track" data-task-id="task-ssk-n2" data-default-title="Учёт недоступного со стороны клиента">
+        <div class="task-check-row">
+        <label class="task-pickup">
+          <input type="checkbox" class="task-cb" data-task-id="task-ssk-n2" />
+          <span>Взяли в работу</span>
+        </label>
+        <label class="task-pickup task-pickup-present">
+          <input type="checkbox" class="task-present-cb" data-task-id="task-ssk-n2" />
+          <span>Применили, можно презентовать клиенту</span>
+        </label>
+        </div>
+        <div class="task-fields-inline">
+          <div class="task-meta-field" data-meta-field="title">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Название задачи</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view"><span class="task-title-display"></span></div>
+            <input type="text" class="task-meta-input task-meta-input-title" autocomplete="off" />
+          </div>
+          <div class="task-meta-field" data-meta-field="aspro">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Ссылка на Аспро</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view task-meta-view-aspro">
+              <a class="task-aspro-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Открыть в Аспро</a>
+              <span class="task-aspro-placeholder">Не указано</span>
+            </div>
+            <input type="text" class="task-meta-input task-meta-input-aspro" autocomplete="off" placeholder="Вставьте URL из Аспро" />
+          </div>
+        </div>
+        <div class="task-global-text">Не запрашивать с клиента то, что он уже чётко обозначил как недоступное (и не повторять это месяцами), вести учёт ограничений.</div>
+      </div>
+
+      <div class="task-global-row task-track" data-task-id="task-ssk-n3" data-default-title="Дашборд затрат и свежие срезы">
+        <div class="task-check-row">
+        <label class="task-pickup">
+          <input type="checkbox" class="task-cb" data-task-id="task-ssk-n3" />
+          <span>Взяли в работу</span>
+        </label>
+        <label class="task-pickup task-pickup-present">
+          <input type="checkbox" class="task-present-cb" data-task-id="task-ssk-n3" />
+          <span>Применили, можно презентовать клиенту</span>
+        </label>
+        </div>
+        <div class="task-fields-inline">
+          <div class="task-meta-field" data-meta-field="title">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Название задачи</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view"><span class="task-title-display"></span></div>
+            <input type="text" class="task-meta-input task-meta-input-title" autocomplete="off" />
+          </div>
+          <div class="task-meta-field" data-meta-field="aspro">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Ссылка на Аспро</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view task-meta-view-aspro">
+              <a class="task-aspro-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Открыть в Аспро</a>
+              <span class="task-aspro-placeholder">Не указано</span>
+            </div>
+            <input type="text" class="task-meta-input task-meta-input-aspro" autocomplete="off" placeholder="Вставьте URL из Аспро" />
+          </div>
+        </div>
+        <div class="task-global-text">Отчёт по затратам: движение к дашборду проще таблицы и согласование будущих правок; где возможно — более свежий срез (хотя бы «вчера»).</div>
+      </div>
+
+      <div class="task-global-row task-track" data-task-id="task-ssk-extra" data-default-title="Процесс гипотезы под ключ">
+        <div class="task-check-row">
+        <label class="task-pickup">
+          <input type="checkbox" class="task-cb" data-task-id="task-ssk-extra" />
+          <span>Взяли в работу</span>
+        </label>
+        <label class="task-pickup task-pickup-present">
+          <input type="checkbox" class="task-present-cb" data-task-id="task-ssk-extra" />
+          <span>Применили, можно презентовать клиенту</span>
+        </label>
+        </div>
+        <div class="task-global-meta">На заметку<span class="task-global-badge extra">второстепенно</span></div>
+        <div class="task-fields-inline">
+          <div class="task-meta-field" data-meta-field="title">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Название задачи</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view"><span class="task-title-display"></span></div>
+            <input type="text" class="task-meta-input task-meta-input-title" autocomplete="off" />
+          </div>
+          <div class="task-meta-field" data-meta-field="aspro">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Ссылка на Аспро</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view task-meta-view-aspro">
+              <a class="task-aspro-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Открыть в Аспро</a>
+              <span class="task-aspro-placeholder">Не указано</span>
+            </div>
+            <input type="text" class="task-meta-input task-meta-input-aspro" autocomplete="off" placeholder="Вставьте URL из Аспро" />
+          </div>
+        </div>
+        <div class="task-global-text">Сильная гипотеза «под ключ» при нехватке времени у клиента — оформить как процесс: критерии, срок, согласование бюджета и рисков.</div>
+      </div>
+    </div>
+
+    <div class="castdev-task-group">
+      <h3><a href="03_Кастдев_Дарья_Ec.ru.html">Ec.ru · 16.04.2026 · Дарья</a></h3>
+
+      <div class="task-global-row task-track" data-task-id="task-ecru-n1" data-default-title="Мини-апдейты между встречами">
+        <div class="task-check-row">
+        <label class="task-pickup">
+          <input type="checkbox" class="task-cb" data-task-id="task-ecru-n1" />
+          <span>Взяли в работу</span>
+        </label>
+        <label class="task-pickup task-pickup-present">
+          <input type="checkbox" class="task-present-cb" data-task-id="task-ecru-n1" />
+          <span>Применили, можно презентовать клиенту</span>
+        </label>
+        </div>
+        <div class="task-fields-inline">
+          <div class="task-meta-field" data-meta-field="title">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Название задачи</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view"><span class="task-title-display"></span></div>
+            <input type="text" class="task-meta-input task-meta-input-title" autocomplete="off" />
+          </div>
+          <div class="task-meta-field" data-meta-field="aspro">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Ссылка на Аспро</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view task-meta-view-aspro">
+              <a class="task-aspro-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Открыть в Аспро</a>
+              <span class="task-aspro-placeholder">Не указано</span>
+            </div>
+            <input type="text" class="task-meta-input task-meta-input-aspro" autocomplete="off" placeholder="Вставьте URL из Аспро" />
+          </div>
+        </div>
+        <div class="task-global-text">Между еженедельными созвонами давать клиенту короткие апдейты в чат: что уже запущено, что тестируется и что изменилось по результатам.</div>
+      </div>
+
+      <div class="task-global-row task-track" data-task-id="task-ecru-n2" data-default-title="Единый формат встречи и summary">
+        <div class="task-check-row">
+        <label class="task-pickup">
+          <input type="checkbox" class="task-cb" data-task-id="task-ecru-n2" />
+          <span>Взяли в работу</span>
+        </label>
+        <label class="task-pickup task-pickup-present">
+          <input type="checkbox" class="task-present-cb" data-task-id="task-ecru-n2" />
+          <span>Применили, можно презентовать клиенту</span>
+        </label>
+        </div>
+        <div class="task-fields-inline">
+          <div class="task-meta-field" data-meta-field="title">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Название задачи</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view"><span class="task-title-display"></span></div>
+            <input type="text" class="task-meta-input task-meta-input-title" autocomplete="off" />
+          </div>
+          <div class="task-meta-field" data-meta-field="aspro">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Ссылка на Аспро</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view task-meta-view-aspro">
+              <a class="task-aspro-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Открыть в Аспро</a>
+              <span class="task-aspro-placeholder">Не указано</span>
+            </div>
+            <input type="text" class="task-meta-input task-meta-input-aspro" autocomplete="off" placeholder="Вставьте URL из Аспро" />
+          </div>
+        </div>
+        <div class="task-global-text">Каждую встречу проводить по единому шаблону: общая статистика, сделанные задачи, план на неделю, а после созвона отправлять короткий summary.</div>
+      </div>
+
+      <div class="task-global-row task-track" data-task-id="task-ecru-n3" data-default-title="Скорость запуска новых каналов">
+        <div class="task-check-row">
+        <label class="task-pickup">
+          <input type="checkbox" class="task-cb" data-task-id="task-ecru-n3" />
+          <span>Взяли в работу</span>
+        </label>
+        <label class="task-pickup task-pickup-present">
+          <input type="checkbox" class="task-present-cb" data-task-id="task-ecru-n3" />
+          <span>Применили, можно презентовать клиенту</span>
+        </label>
+        </div>
+        <div class="task-fields-inline">
+          <div class="task-meta-field" data-meta-field="title">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Название задачи</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view"><span class="task-title-display"></span></div>
+            <input type="text" class="task-meta-input task-meta-input-title" autocomplete="off" />
+          </div>
+          <div class="task-meta-field" data-meta-field="aspro">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Ссылка на Аспро</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view task-meta-view-aspro">
+              <a class="task-aspro-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Открыть в Аспро</a>
+              <span class="task-aspro-placeholder">Не указано</span>
+            </div>
+            <input type="text" class="task-meta-input task-meta-input-aspro" autocomplete="off" placeholder="Вставьте URL из Аспро" />
+          </div>
+        </div>
+        <div class="task-global-text">Для новых каналов и размещений нужен понятный контроль сроков запуска, чтобы клиент не слышал несколько встреч подряд, что кабинет ещё создаётся.</div>
+      </div>
+
+      <div class="task-global-row task-track" data-task-id="task-ecru-extra" data-default-title="Показать роли без перегруза">
+        <div class="task-check-row">
+        <label class="task-pickup">
+          <input type="checkbox" class="task-cb" data-task-id="task-ecru-extra" />
+          <span>Взяли в работу</span>
+        </label>
+        <label class="task-pickup task-pickup-present">
+          <input type="checkbox" class="task-present-cb" data-task-id="task-ecru-extra" />
+          <span>Применили, можно презентовать клиенту</span>
+        </label>
+        </div>
+        <div class="task-global-meta">На заметку<span class="task-global-badge extra">второстепенно</span></div>
+        <div class="task-fields-inline">
+          <div class="task-meta-field" data-meta-field="title">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Название задачи</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view"><span class="task-title-display"></span></div>
+            <input type="text" class="task-meta-input task-meta-input-title" autocomplete="off" />
+          </div>
+          <div class="task-meta-field" data-meta-field="aspro">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Ссылка на Аспро</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view task-meta-view-aspro">
+              <a class="task-aspro-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Открыть в Аспро</a>
+              <span class="task-aspro-placeholder">Не указано</span>
+            </div>
+            <input type="text" class="task-meta-input task-meta-input-aspro" autocomplete="off" placeholder="Вставьте URL из Аспро" />
+          </div>
+        </div>
+        <div class="task-global-text">Роли внутри команды ей не до конца понятны, но это не критично. Можно мягко прояснить схему ролей, не перегружая клиента организационной схемой.</div>
+      </div>
+    </div>
+  </section>
+
+  <script src="Служебные/castdev-tasks.js"></script>
+</body>
+</html>
