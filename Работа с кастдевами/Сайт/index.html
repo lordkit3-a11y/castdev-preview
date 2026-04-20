@@ -97,6 +97,16 @@
     a.btn-open:active {
       opacity: 0.95;
     }
+    a.btn-open.btn-rec {
+      background: #6b86a8;
+      border-color: #5a789c;
+    }
+    a.btn-open.btn-rec:hover {
+      background: #5a789c;
+    }
+    td.col-link .btn-wrap a.btn-open + a.btn-open {
+      margin-top: 8px;
+    }
     /* Сворачиваемый краткий вывод */
     details.sum-details {
       margin: 0;
@@ -213,7 +223,10 @@
         <td class="col-date">16.04.2026</td>
         <td class="col-who">Ec.ru<br />Дарья</td>
         <td class="col-link">
-          <span class="btn-wrap"><a class="btn-open" href="03_Кастдев_Дарья_Ec.ru.html">Открыть кастдев</a></span>
+          <span class="btn-wrap">
+            <a class="btn-open" href="03_Кастдев_Дарья_Ec.ru.html">Открыть кастдев</a>
+            <a class="btn-open btn-rec" href="https://it-agency.ktalk.ru/recordings/3ZVInPCJULjqmfyOzM9u" target="_blank" rel="noopener noreferrer">Запись созвона</a>
+          </span>
         </td>
         <td class="col-sum">
           <details class="sum-details">
