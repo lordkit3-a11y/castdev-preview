@@ -1,3 +1,8 @@
 .DS_Store
-Транскрипция Обсуждение процессов и сервиса SSK.txt
-ОДИН_РАЗ_ПОСЛЕ_СОЗДАНИЯ_РЕПО.md
+
+# Публикуем на GitHub только HTML из /docs (GitHub Pages source: main /docs).
+# Всё остальное (транскрибации, служебное, md, js, css, json, xlsx и т.п.) остаётся локально.
+*
+!docs/
+!docs/**/*.html
+!.gitignore

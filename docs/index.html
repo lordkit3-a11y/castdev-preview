@@ -4,8 +4,348 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Кастдевы — список</title>
-  <link rel="stylesheet" href="Служебные/castdev-tasks.css" />
   <style>
+/* Синхронизация «взяли в работу» между index и страницами кастдева (localStorage) */
+
+.task-track {
+  position: relative;
+}
+
+.task-check-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 14px 20px;
+  margin-bottom: 10px;
+}
+
+.task-track .task-pickup {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2e5d34;
+  cursor: pointer;
+  user-select: none;
+}
+
+.task-track .task-pickup-present {
+  color: #1b5e20;
+}
+
+.task-track .task-pickup input {
+  margin-top: 2px;
+  width: 1.05em;
+  height: 1.05em;
+  accent-color: #43a047;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.task-track .task-pickup-present input {
+  accent-color: #2e7d32;
+}
+
+/* Взяли в работу — светло-зелёный */
+.task-track.task-in-work:not(.task-ready-client) {
+  background: #e8f5e9 !important;
+  border-color: #a5d6a7 !important;
+  box-shadow: inset 0 0 0 1px rgba(76, 175, 80, 0.2);
+}
+
+.task-track.task-in-work.once:not(.task-ready-client) {
+  background: #e8f5e9 !important;
+  border-left-color: #66bb6a !important;
+}
+
+/* Готово к презентации клиенту — насыщенный зелёный */
+.task-track.task-ready-client {
+  background: #aed581 !important;
+  border-color: #689f38 !important;
+  box-shadow: inset 0 0 0 2px rgba(46, 125, 50, 0.35);
+}
+
+.task-track.task-ready-client.once {
+  background: #aed581 !important;
+  border-left-color: #558b2f !important;
+}
+
+/* Главный экран: все задачи */
+.castdev-tasks-section {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 2px solid #cfd4dc;
+}
+
+.castdev-tasks-section h2 {
+  font-size: 1.1rem;
+  margin: 0 0 6px;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.castdev-tasks-section .castdev-tasks-lead {
+  color: #555;
+  font-size: 13px;
+  margin: 0 0 12px;
+  line-height: 1.45;
+}
+
+.castdev-git-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px 14px;
+  margin: 0 0 20px;
+  padding: 10px 12px;
+  background: #f4f7fb;
+  border: 1px solid #dde5ef;
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #444;
+}
+
+.castdev-git-bar-text {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.castdev-git-bar-text code {
+  font-size: 11px;
+  background: #e8ecf2;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+button.castdev-export-btn {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 12px;
+  background: #3d5a80;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+button.castdev-export-btn:hover {
+  background: #2f4a66;
+}
+
+button.castdev-export-btn:focus-visible {
+  outline: 2px solid #7eb8ff;
+  outline-offset: 2px;
+}
+
+.castdev-git-bar--page {
+  margin-top: 28px;
+}
+
+.castdev-task-group {
+  margin-bottom: 22px;
+}
+
+.castdev-task-group h3 {
+  font-size: 0.95rem;
+  margin: 0 0 10px;
+  padding: 6px 0;
+  color: #3d5a80;
+  font-weight: 700;
+  border-bottom: 1px solid #dde3ea;
+}
+
+.castdev-task-group h3 a {
+  color: #3d5a80;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.castdev-task-group h3 a:hover {
+  text-decoration: underline;
+}
+
+.task-global-row {
+  border: 1px solid #cfd4dc;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  background: #fafcfb;
+}
+
+.task-global-row.task-in-work:not(.task-ready-client) {
+  background: #e8f5e9;
+  border-color: #a5d6a7;
+  box-shadow: inset 0 0 0 1px rgba(76, 175, 80, 0.15);
+}
+
+.task-global-row.task-ready-client {
+  background: #aed581;
+  border-color: #689f38;
+  box-shadow: inset 0 0 0 2px rgba(46, 125, 50, 0.3);
+}
+
+.task-global-row .task-check-row {
+  margin-bottom: 8px;
+}
+
+.task-global-meta {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #5c6f82;
+  margin-bottom: 6px;
+}
+
+.task-global-text {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #1a1a1a;
+  margin-top: 4px;
+}
+
+.task-global-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-left: 8px;
+  vertical-align: middle;
+  background: #eceff3;
+  color: #5c6f82;
+}
+
+.task-global-badge.extra {
+  background: #fff8e6;
+  color: #7a5f00;
+}
+
+/* Название задачи + ссылка Аспро (редактирование по кнопке) */
+.task-fields-inline {
+  margin: 10px 0 12px;
+  padding: 10px 0 0;
+  border-top: 1px dashed #d5dbe3;
+}
+
+.task-meta-field {
+  margin-bottom: 12px;
+}
+
+.task-meta-field:last-child {
+  margin-bottom: 0;
+}
+
+.task-meta-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 10px;
+  margin-bottom: 4px;
+}
+
+.task-meta-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #5c6f82;
+}
+
+button.task-field-edit {
+  font-family: inherit;
+  font-size: 10px;
+  line-height: 1.2;
+  font-weight: 600;
+  color: #3d6db5;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+button.task-field-edit:hover {
+  color: #2a5299;
+}
+
+button.task-field-edit:focus-visible {
+  outline: 2px solid #7eb8ff;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.task-meta-field.is-editing .task-meta-view {
+  display: none;
+}
+
+.task-meta-field .task-meta-input {
+  display: none;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  font: inherit;
+  font-size: 14px;
+  padding: 6px 8px;
+  border: 1px solid #9db4d0;
+  border-radius: 6px;
+  margin-top: 2px;
+}
+
+.task-meta-field.is-editing .task-meta-input {
+  display: block;
+}
+
+.task-title-display {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: #1a1a1a;
+  user-select: text;
+  cursor: text;
+}
+
+.task-meta-view-aspro {
+  font-size: 14px;
+  line-height: 1.45;
+  min-height: 1.35em;
+}
+
+.task-aspro-link {
+  color: #3d6db5;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  word-break: break-all;
+}
+
+.task-aspro-link:hover {
+  color: #2a5299;
+}
+
+.task-aspro-placeholder {
+  font-size: 13px;
+  color: #888;
+  font-weight: 500;
+  user-select: text;
+}
+
+
+/* docs-only: скрываем блок про castdev-state.json */
+.castdev-git-bar{display:none!important;}
+
+
     :root {
       --border: #cfd4dc;
       --bg-head: #f0f3f8;
@@ -266,6 +606,29 @@
                 <li><strong>Про результат:</strong> в текущем периоде есть отличие от медиаплана, но клиент не считает это «провалом команды» — видит диалог и тестирование гипотез.</li>
                 <li><strong>Запрос:</strong> улучшить «обвязку» вокруг договора/медиаплана (прозрачные приложения для финдепартамента, итоговые суммы).</li>
                 <li><strong>Отчётность:</strong> добавить тренды/динамику и быстрые срезы по инструментам/промо‑страницам (в идеале — дашборды/витрина данных).</li>
+              </ul>
+            </div>
+          </details>
+        </td>
+      </tr>
+      <tr>
+        <td class="col-date">29.04.2026</td>
+        <td class="col-who">SSK<br />Ольга (созвон 2)</td>
+        <td class="col-link">
+          <span class="btn-wrap"><a class="btn-open" href="05_Кастдев_Ольга_SSK_2.html">Открыть кастдев</a></span>
+        </td>
+        <td class="col-sum">
+          <details class="sum-details">
+            <summary>
+              <span class="sum-preview">Мало времени на проекте · медиаплан не всегда выполняется · нужен эффект антифрода · новая отчётность в плюс</span>
+              <span class="sum-hint"> — развернуть</span>
+            </summary>
+            <div class="sum-body">
+              <ul class="summary-list">
+                <li>Сотрудничают ~<strong>1.5 месяца</strong>, поэтому часть вопросов — «рано оценивать».</li>
+                <li><strong>Боль:</strong> медиаплан не всегда выполняется; хочется «подтянуть» и <strong>сильнее закрыть май</strong>.</li>
+                <li><strong>Антифрод/спам:</strong> меры внедряются (сегменты/программы), но пока <strong>эффект слабый</strong> — ждут улучшения.</li>
+                <li><strong>Отчётность:</strong> новая нравится: больше метрик (CPL/CR) и быстрые фильтры; текущая — слишком простая.</li>
               </ul>
             </div>
           </details>
@@ -863,8 +1226,516 @@
         <div class="task-global-text">Роли внутри команды не всегда запоминаются, особенно когда участников много. Можно добавить лёгкую «карту ролей» (1 экран/1 слайд) без перегруза клиента оргструктурой.</div>
       </div>
     </div>
-  </section>
 
-  <script src="Служебные/castdev-tasks.js"></script>
+    <div class="castdev-task-group">
+      <h3><a href="05_Кастдев_Ольга_SSK_2.html">SSK · 29.04.2026 · Ольга (созвон 2)</a></h3>
+
+      <div class="task-global-row task-track" data-task-id="task-ssk2-n1" data-default-title="Дожим медиаплана к маю">
+        <div class="task-check-row">
+        <label class="task-pickup">
+          <input type="checkbox" class="task-cb" data-task-id="task-ssk2-n1" />
+          <span>Взяли в работу</span>
+        </label>
+        <label class="task-pickup task-pickup-present">
+          <input type="checkbox" class="task-present-cb" data-task-id="task-ssk2-n1" />
+          <span>Применили, можно презентовать клиенту</span>
+        </label>
+        </div>
+        <div class="task-fields-inline">
+          <div class="task-meta-field" data-meta-field="title">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Название задачи</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view"><span class="task-title-display"></span></div>
+            <input type="text" class="task-meta-input task-meta-input-title" autocomplete="off" />
+          </div>
+          <div class="task-meta-field" data-meta-field="aspro">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Ссылка на Аспро</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view task-meta-view-aspro">
+              <a class="task-aspro-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Открыть в Аспро</a>
+              <span class="task-aspro-placeholder">Не указано</span>
+            </div>
+            <input type="text" class="task-meta-input task-meta-input-aspro" autocomplete="off" placeholder="Вставьте URL из Аспро" />
+          </div>
+        </div>
+        <div class="task-global-text">Собрать и зафиксировать план «как догоняем медиаплан» с коротким циклом проверок, чтобы май закрыть сильнее по факту, а не только по интеграциям/аудиториям.</div>
+      </div>
+
+      <div class="task-global-row task-track" data-task-id="task-ssk2-n2" data-default-title="Эффект по антифроду/спаму">
+        <div class="task-check-row">
+        <label class="task-pickup">
+          <input type="checkbox" class="task-cb" data-task-id="task-ssk2-n2" />
+          <span>Взяли в работу</span>
+        </label>
+        <label class="task-pickup task-pickup-present">
+          <input type="checkbox" class="task-present-cb" data-task-id="task-ssk2-n2" />
+          <span>Применили, можно презентовать клиенту</span>
+        </label>
+        </div>
+        <div class="task-fields-inline">
+          <div class="task-meta-field" data-meta-field="title">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Название задачи</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view"><span class="task-title-display"></span></div>
+            <input type="text" class="task-meta-input task-meta-input-title" autocomplete="off" />
+          </div>
+          <div class="task-meta-field" data-meta-field="aspro">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Ссылка на Аспро</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view task-meta-view-aspro">
+              <a class="task-aspro-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Открыть в Аспро</a>
+              <span class="task-aspro-placeholder">Не указано</span>
+            </div>
+            <input type="text" class="task-meta-input task-meta-input-aspro" autocomplete="off" placeholder="Вставьте URL из Аспро" />
+          </div>
+        </div>
+        <div class="task-global-text">Сделать понятную «карточку прогресса» по антифроду: что внедрили и какой эффект фиксируем по качеству лида/спаму.</div>
+      </div>
+
+      <div class="task-global-row task-track" data-task-id="task-ssk2-n3" data-default-title="Отчёт с CPL/CR и фильтрами">
+        <div class="task-check-row">
+        <label class="task-pickup">
+          <input type="checkbox" class="task-cb" data-task-id="task-ssk2-n3" />
+          <span>Взяли в работу</span>
+        </label>
+        <label class="task-pickup task-pickup-present">
+          <input type="checkbox" class="task-present-cb" data-task-id="task-ssk2-n3" />
+          <span>Применили, можно презентовать клиенту</span>
+        </label>
+        </div>
+        <div class="task-fields-inline">
+          <div class="task-meta-field" data-meta-field="title">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Название задачи</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view"><span class="task-title-display"></span></div>
+            <input type="text" class="task-meta-input task-meta-input-title" autocomplete="off" />
+          </div>
+          <div class="task-meta-field" data-meta-field="aspro">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Ссылка на Аспро</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view task-meta-view-aspro">
+              <a class="task-aspro-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Открыть в Аспро</a>
+              <span class="task-aspro-placeholder">Не указано</span>
+            </div>
+            <input type="text" class="task-meta-input task-meta-input-aspro" autocomplete="off" placeholder="Вставьте URL из Аспро" />
+          </div>
+        </div>
+        <div class="task-global-text">Довести новую отчётность до состояния «сам себе ответил за 30 секунд»: CPL/CR и прочие метрики, фильтры по периоду и каналу без запросов к команде.</div>
+      </div>
+
+      <div class="task-global-row task-track" data-task-id="task-ssk2-extra" data-default-title="Показать прогресс в отчёте">
+        <div class="task-check-row">
+        <label class="task-pickup">
+          <input type="checkbox" class="task-cb" data-task-id="task-ssk2-extra" />
+          <span>Взяли в работу</span>
+        </label>
+        <label class="task-pickup task-pickup-present">
+          <input type="checkbox" class="task-present-cb" data-task-id="task-ssk2-extra" />
+          <span>Применили, можно презентовать клиенту</span>
+        </label>
+        </div>
+        <div class="task-global-meta">На заметку<span class="task-global-badge extra">второстепенно</span></div>
+        <div class="task-fields-inline">
+          <div class="task-meta-field" data-meta-field="title">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Название задачи</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view"><span class="task-title-display"></span></div>
+            <input type="text" class="task-meta-input task-meta-input-title" autocomplete="off" />
+          </div>
+          <div class="task-meta-field" data-meta-field="aspro">
+            <div class="task-meta-line">
+              <span class="task-meta-label">Ссылка на Аспро</span>
+              <button type="button" class="task-field-edit">Редактировать</button>
+            </div>
+            <div class="task-meta-view task-meta-view-aspro">
+              <a class="task-aspro-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Открыть в Аспро</a>
+              <span class="task-aspro-placeholder">Не указано</span>
+            </div>
+            <input type="text" class="task-meta-input task-meta-input-aspro" autocomplete="off" placeholder="Вставьте URL из Аспро" />
+          </div>
+        </div>
+        <div class="task-global-text">Кастдев короткий, и часть вопросов «рано оценивать». На следующих созвонах удобно фиксировать прогресс по 2–3 ключевым пунктам (медиаплан, антифрод, отчётность), чтобы быстро видеть, что меняется.</div>
+      </div>
+    </div>
+  </section>
+<script>
+(function () {
+  "use strict";
+
+  var STORAGE_KEY = "castdev_task_in_progress_v1";
+  var PRESENT_KEY = "castdev_task_client_ready_v1";
+  var FIELDS_KEY = "castdev_task_fields_v1";
+  var STATE_FILE = null;
+
+  function loadState() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return {};
+      var o = JSON.parse(raw);
+      return o && typeof o === "object" ? o : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveState(state) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (e) {}
+  }
+
+  function setDone(taskId, done) {
+    var s = loadState();
+    if (done) s[taskId] = true;
+    else delete s[taskId];
+    saveState(s);
+    applyFromStorage();
+  }
+
+  function loadPresentState() {
+    try {
+      var raw = localStorage.getItem(PRESENT_KEY);
+      if (!raw) return {};
+      var o = JSON.parse(raw);
+      return o && typeof o === "object" ? o : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function savePresentState(state) {
+    try {
+      localStorage.setItem(PRESENT_KEY, JSON.stringify(state));
+    } catch (e) {}
+  }
+
+  function setPresent(taskId, on) {
+    var s = loadPresentState();
+    if (on) s[taskId] = true;
+    else delete s[taskId];
+    savePresentState(s);
+    applyPresentFromStorage();
+  }
+
+  function applyFromStorage() {
+    var state = loadState();
+    document.querySelectorAll("input.task-cb[data-task-id]").forEach(function (cb) {
+      var id = cb.getAttribute("data-task-id");
+      if (!id) return;
+      var on = !!state[id];
+      cb.checked = on;
+      var row = cb.closest(".task-track");
+      if (row) row.classList.toggle("task-in-work", on);
+    });
+  }
+
+  function applyPresentFromStorage() {
+    var state = loadPresentState();
+    document.querySelectorAll("input.task-present-cb[data-task-id]").forEach(function (cb) {
+      var id = cb.getAttribute("data-task-id");
+      if (!id) return;
+      var on = !!state[id];
+      cb.checked = on;
+      var row = cb.closest(".task-track");
+      if (row) row.classList.toggle("task-ready-client", on);
+    });
+  }
+
+  function applyAllCheckboxes() {
+    applyFromStorage();
+    applyPresentFromStorage();
+  }
+
+  /** Состояние из репозитория (GitHub Pages): общие галочки, названия, ссылки */
+  function applyRemotePayload(data) {
+    if (!data || typeof data !== "object") return;
+    var ip = data.inProgress && typeof data.inProgress === "object" ? data.inProgress : {};
+    var cr = data.clientReady && typeof data.clientReady === "object" ? data.clientReady : {};
+    var fd = data.fields && typeof data.fields === "object" ? data.fields : {};
+    saveState(ip);
+    savePresentState(cr);
+    saveFieldsMap(fd);
+    applyAllCheckboxes();
+    refreshAllTaskFields();
+  }
+
+  function loadRemoteStateThen(done) {
+    if (typeof done === "function") done();
+  }
+
+  function exportStateForGit() {
+    var payload = {
+      version: 1,
+      inProgress: loadState(),
+      clientReady: loadPresentState(),
+      fields: loadFieldsMap()
+    };
+    var text = JSON.stringify(payload, null, 2) + "\n";
+    var blob = new Blob([text], { type: "application/json;charset=utf-8" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "castdev-state.json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(a.href);
+  }
+
+  function wireExportButton() {
+    var btn = document.getElementById("castdev-export-git");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      exportStateForGit();
+    });
+  }
+
+  document.addEventListener("change", function (e) {
+    var t = e.target;
+    if (!t || !t.matches) return;
+    if (t.matches("input.task-cb[data-task-id]")) {
+      var id = t.getAttribute("data-task-id");
+      if (!id) return;
+      setDone(id, t.checked);
+      return;
+    }
+    if (t.matches("input.task-present-cb[data-task-id]")) {
+      var id2 = t.getAttribute("data-task-id");
+      if (!id2) return;
+      setPresent(id2, t.checked);
+    }
+  });
+
+  /* ——— Название + Аспро ——— */
+
+  function loadFieldsMap() {
+    try {
+      var raw = localStorage.getItem(FIELDS_KEY);
+      if (!raw) return {};
+      var o = JSON.parse(raw);
+      return o && typeof o === "object" ? o : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveFieldsMap(map) {
+    try {
+      localStorage.setItem(FIELDS_KEY, JSON.stringify(map));
+    } catch (e) {}
+  }
+
+  function getFieldsForTask(taskId) {
+    var m = loadFieldsMap();
+    var entry = m[taskId];
+    if (!entry || typeof entry !== "object") return { title: "", aspro: "" };
+    return {
+      title: typeof entry.title === "string" ? entry.title : "",
+      aspro: typeof entry.aspro === "string" ? entry.aspro : ""
+    };
+  }
+
+  function setFieldsForTask(taskId, partial) {
+    var m = loadFieldsMap();
+    var cur = getFieldsForTask(taskId);
+    if (partial.title !== undefined) cur.title = partial.title;
+    if (partial.aspro !== undefined) cur.aspro = partial.aspro;
+    m[taskId] = cur;
+    saveFieldsMap(m);
+  }
+
+  function normalizeAsproInput(raw) {
+    var s = (raw || "").trim();
+    if (!s) return "";
+    if (/^https?:\/\//i.test(s)) return s;
+    if (/^\/\//.test(s)) return "https:" + s;
+    if (!/\s/.test(s) && /\.[a-z]{2,}([/:?#]|$)/i.test(s)) {
+      return "https://" + s.replace(/^\/+/, "");
+    }
+    return s;
+  }
+
+  function isSafeOpenableUrl(s) {
+    if (!s) return false;
+    try {
+      var u = new URL(s);
+      return u.protocol === "http:" || u.protocol === "https:";
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function renderTaskField(track, fieldEl) {
+    var taskId = track.getAttribute("data-task-id");
+    if (!taskId) return;
+    var kind = fieldEl.getAttribute("data-meta-field");
+    var stored = getFieldsForTask(taskId);
+    var defTitle = track.getAttribute("data-default-title") || "";
+
+    if (kind === "title") {
+      var disp = fieldEl.querySelector(".task-title-display");
+      var text = (stored.title || "").trim() || defTitle;
+      if (disp) disp.textContent = text;
+    } else if (kind === "aspro") {
+      var link = fieldEl.querySelector(".task-aspro-link");
+      var ph = fieldEl.querySelector(".task-aspro-placeholder");
+      var url = normalizeAsproInput(stored.aspro);
+      if (isSafeOpenableUrl(url)) {
+        if (link) {
+          link.href = url;
+          link.textContent = "Открыть в Аспро";
+          link.removeAttribute("hidden");
+        }
+        if (ph) ph.style.display = "none";
+      } else if ((stored.aspro || "").trim()) {
+        if (link) link.setAttribute("hidden", "hidden");
+        if (ph) {
+          ph.style.display = "inline";
+          ph.textContent = (stored.aspro || "").trim();
+        }
+      } else {
+        if (link) link.setAttribute("hidden", "hidden");
+        if (ph) {
+          ph.style.display = "inline";
+          ph.textContent = "Не указано";
+        }
+      }
+    }
+  }
+
+  function finishEditor(fieldEl, save) {
+    if (!fieldEl.classList.contains("is-editing")) return;
+    var track = fieldEl.closest(".task-track");
+    var taskId = track && track.getAttribute("data-task-id");
+    var kind = fieldEl.getAttribute("data-meta-field");
+    var input = fieldEl.querySelector(".task-meta-input");
+    if (save && taskId && input) {
+      if (kind === "title") {
+        var defTitle = track.getAttribute("data-default-title") || "";
+        var v = input.value.trim();
+        if (v === defTitle) setFieldsForTask(taskId, { title: "" });
+        else setFieldsForTask(taskId, { title: v });
+      } else if (kind === "aspro") {
+        setFieldsForTask(taskId, { aspro: normalizeAsproInput(input.value) });
+      }
+    }
+    fieldEl.classList.remove("is-editing");
+    if (track) renderTaskField(track, fieldEl);
+  }
+
+  function openEditor(fieldEl) {
+    document.querySelectorAll(".task-meta-field.is-editing").forEach(function (other) {
+      if (other !== fieldEl) finishEditor(other, true);
+    });
+    var track = fieldEl.closest(".task-track");
+    var taskId = track && track.getAttribute("data-task-id");
+    if (!taskId) return;
+    var kind = fieldEl.getAttribute("data-meta-field");
+    var stored = getFieldsForTask(taskId);
+    var input = fieldEl.querySelector(".task-meta-input");
+    if (!input) return;
+    if (kind === "title") {
+      var defTitle = track.getAttribute("data-default-title") || "";
+      input.value = (stored.title || "").trim() ? stored.title.trim() : defTitle;
+    } else {
+      input.value = (stored.aspro || "").trim();
+    }
+    fieldEl.classList.add("is-editing");
+    input.focus();
+    input.select();
+  }
+
+  function refreshAllTaskFields() {
+    document.querySelectorAll(".task-track").forEach(function (track) {
+      if (!track.getAttribute("data-task-id")) return;
+      track.querySelectorAll(".task-meta-field").forEach(function (fe) {
+        if (!fe.classList.contains("is-editing")) renderTaskField(track, fe);
+      });
+    });
+  }
+
+  function initTaskMetaFields() {
+    document.querySelectorAll(".task-track .task-fields-inline").forEach(function (box) {
+      if (box.getAttribute("data-fields-inited") === "1") return;
+      box.setAttribute("data-fields-inited", "1");
+      var track = box.closest(".task-track");
+      if (!track) return;
+      track.querySelectorAll(".task-meta-field").forEach(function (fieldEl) {
+        renderTaskField(track, fieldEl);
+        var editBtn = fieldEl.querySelector(".task-field-edit");
+        if (editBtn) {
+          editBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            openEditor(fieldEl);
+          });
+        }
+        var inp = fieldEl.querySelector(".task-meta-input");
+        if (inp) {
+          inp.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") {
+              e.preventDefault();
+              fieldEl.classList.remove("is-editing");
+              renderTaskField(track, fieldEl);
+            }
+          });
+          inp.addEventListener("blur", function () {
+            finishEditor(fieldEl, true);
+          });
+        }
+      });
+    });
+  }
+
+  document.addEventListener(
+    "mousedown",
+    function (e) {
+      var t = e.target;
+      if (t.closest && t.closest(".task-meta-field.is-editing")) return;
+      document.querySelectorAll(".task-meta-field.is-editing").forEach(function (fe) {
+        finishEditor(fe, true);
+      });
+    },
+    true
+  );
+
+  window.addEventListener("storage", function (e) {
+    if (e.key === FIELDS_KEY || e.key === STORAGE_KEY || e.key === PRESENT_KEY) {
+      applyAllCheckboxes();
+      refreshAllTaskFields();
+    }
+  });
+
+  function boot() {
+    applyAllCheckboxes();
+    initTaskMetaFields();
+    wireExportButton();
+    loadRemoteStateThen(function () {
+      applyAllCheckboxes();
+      refreshAllTaskFields();
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+})();
+
+</script>
 </body>
 </html>
