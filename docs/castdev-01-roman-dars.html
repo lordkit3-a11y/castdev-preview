@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Кастдев — SSK, Ольга (созвон 2)</title>
+  <title>Кастдев — Роман (Dars IT-A)</title>
   <style>
 /* Синхронизация «взяли в работу» между index и страницами кастдева (localStorage) */
 
@@ -77,6 +77,39 @@
   margin-top: 40px;
   padding-top: 24px;
   border-top: 2px solid #cfd4dc;
+}
+
+/* Сворачиваемый блок задач на главной */
+details.castdev-tasks-section > summary {
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+details.castdev-tasks-section > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.castdev-tasks-section > summary::before {
+  content: "▸ ";
+  display: inline-block;
+  color: #3d5a80;
+  font-weight: 800;
+  width: 1em;
+  transition: transform 0.15s ease;
+}
+
+details.castdev-tasks-section[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.castdev-tasks-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.castdev-tasks-body {
+  margin-top: 10px;
 }
 
 .castdev-tasks-section h2 {
@@ -434,6 +467,14 @@ button.task-field-edit:focus-visible {
       margin-bottom: 12px;
       background: #fafcfb;
     }
+    .task .label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #5c6f82;
+      margin-bottom: 8px;
+    }
     .task-line { font-size: 15px; font-weight: 600; margin-bottom: 4px; line-height: 1.4; }
     .once {
       border-left: 4px solid #c9a227;
@@ -452,11 +493,10 @@ button.task-field-edit:focus-visible {
 </head>
 <body>
   <nav class="page-nav"><a href="index.html">← Все кастдевы</a></nav>
-  <h1>Кастдев — SSK, Ольга, 29.04.2026 (созвон 2)</h1>
+  <h1>Кастдев — Роман (Dars IT-A), 08.04.2026</h1>
   <p class="muted">Вопросы — как в «Вопросы к кастдеву.xlsx», без изменений.</p>
   <div class="note">
-    <strong>Транскрипт:</strong> запись «Новая запись», 29 апреля 2026. Собеседник — <strong>Ольга</strong> (SSK).
-    По тону: сотрудничество короткое (~1.5 месяца), поэтому многие вопросы — «рано оценивать». Ключевой запрос — <strong>подтянуть выполнение медиаплана</strong> и дать <strong>результат по антифроду/спаму</strong>; новая отчётность воспринимается позитивно, ждут больше метрик и быстрые фильтры.
+    <strong>Транскрипт:</strong> первые ~14 мин. — другой подрядчик по ошибке; ответы ниже — после уточнения. Где смысл совпадает с началом (отчёт, медиаплан), оставлено согласованно.
   </div>
 
   <h2>Контекст</h2>
@@ -470,7 +510,7 @@ button.task-field-edit:focus-visible {
     <tbody>
       <tr>
         <td class="col-q"><span class="num">1.</span>Вы пришли к нам с задачей на привлечение лидов, верно? Что было самым важным?</td>
-        <td>Да. При выборе подрядчика важно: <strong>стоимость / медиаплан</strong> и в целом <strong>взаимодействие с командой</strong>.</td>
+        <td>Когда Роман пришёл в компанию, проекты у вас уже были — предысторию выбора не помнит. Вероятно нужен был лидоген и не «одна корзина»: разделение между несколькими агентствами.</td>
       </tr>
     </tbody>
   </table>
@@ -486,20 +526,20 @@ button.task-field-edit:focus-visible {
     <tbody>
       <tr>
         <td><span class="num">2.</span>Насколько сейчас эта задача решается?</td>
-        <td>Не всегда «догоняем» медиапланы: используют много интеграций/аудиторий, но <strong>медиаплан выполняется не всегда</strong>.</td>
+        <td>Сейчас есть проблемы: нестабильность (вплоть до недель), нет ясности «куда идём», стратегия не выстраивается. Заменили специалиста (Екатерина): ощущение тупика, нужны более радикальные меры. Долгой дистанцией ВК в Хабаровске не получается; каналов на лиды меньше; оглядка на Telegram до конца года, дальше — риск упереться в Яндекс.</td>
       </tr>
       <tr>
-        <td><span class="num">3.</span>Мы где-то не дотягиваем до ваших ожиданий? В чём конкретно?</td>
-        <td>Команда <strong>ищет разные ходы</strong>, в том числе по <strong>спаму/антифроду</strong>, но пока эффекта мало. Хотят <strong>результат лучше</strong> и «хорошо закрыть май».</td>
+        <td><span class="num">3.</span>Где мы не дотягиваем до ожиданий?</td>
+        <td>При невыполнении плана: не видно причин и серьёзных озвученных мер, нет ощущения чёткого плана выруливания; на дистанции — ощущение низкой вовлечённости специалиста. Плюс запрос на инициативы/аналитику и устаревший Excel-отчёт (переход на Power BI в работе).</td>
       </tr>
       <tr>
-        <td><span class="num">4.</span>В чём мы превзошли ожидания?</td>
-        <td>Пропустили: клиентка сказала, что работает с нами пока недолго.</td>
+        <td><span class="num">4.</span>В чём мы, наоборот, превзошли ожидания?</td>
+        <td>Прям «превзошли» — не вспоминает. Долгая работа раньше означала удовлетворённость результатами, но последние месяцы «свернули не туда». Ни у вас, ни у других агентств «супер-классного» не припоминает.</td>
       </tr>
     </tbody>
   </table>
 
-  <h2>Процесс и взаимодействие</h2>
+  <h2>Процессы</h2>
   <table class="q">
     <thead>
       <tr>
@@ -509,48 +549,17 @@ button.task-field-edit:focus-visible {
     </thead>
     <tbody>
       <tr>
-        <td><span class="num">5.</span>Что удобнее всего в работе с нами? Что вызывает сложности / лишние действия?</td>
-        <td>
-          <strong>Удобно:</strong> быстрая коммуникация, адекватная команда.<br />
-          <strong>Сложности:</strong> пока рано оценивать.<br />
-          <strong>Лишнего:</strong> не видит; отмечает внедрение новых отчётов и работу по антифроду.
-        </td>
+        <td><span class="num">5.</span>Что в работе с нами сейчас удобно?</td>
+        <td>Еженедельные созвоны по четвергам: закрывают вопросы по месячному отчёту, можно голосом быстро подкрутить стратегию/каналы; раз в неделю — очень удобно. Исторически так сложилось; даже когда всё хорошо — тоже раз в неделю.</td>
       </tr>
       <tr>
-        <td><span class="num">6.</span>Как вам отчётность? Что удобно / неудобно?</td>
-        <td>
-          Новая отчётность — «идём в лучшую сторону»: нужны отчёты с <strong>большим числом показателей</strong> (CPL/CR и т.п.) и быстрыми фильтрами по периоду/каналу.
-          Текущий отчёт — <strong>максимально простой</strong>, мало показателей; если нужно шире — приходится просить команду.
-        </td>
-      </tr>
-      <tr>
-        <td><span class="num">7.</span>Были ситуации, когда «что-то пошло не так»?</td>
-        <td>За короткий период — нет.</td>
-      </tr>
-      <tr>
-        <td><span class="num">8.</span>Если бы можно было изменить одну вещь в нашей работе — что бы это было?</td>
-        <td>Пока нет сформулированного запроса.</td>
-      </tr>
-      <tr>
-        <td><span class="num">9.</span>Чего не хватает в нашей работе?</td>
-        <td>Пока не может сказать.</td>
-      </tr>
-      <tr>
-        <td><span class="num">10.</span>Медиаплан: что упростить/улучшить?</td>
-        <td>Формат подходит: медиапланы обсуждают совместно, при необходимости сами придут с доп. запросами.</td>
-      </tr>
-      <tr>
-        <td><span class="num">11.</span>Понятны ли роли внутри нашей команды?</td>
-        <td>Да, в целом понятно.</td>
-      </tr>
-      <tr>
-        <td><span class="num">12.</span>Что улучшить в коммуникации?</td>
-        <td>Пока нет запросов.</td>
+        <td><span class="num">6.</span>А что вызывает сложности или лишние действия?</td>
+        <td>Перегруженный еженедельный Excel-отчёт (много листов). Сейчас делают автоотчёт (ожидают Power BI, презентация ~в четверг) — вопрос в основном отпал. Новый отчёт ещё не видели, ждут.</td>
       </tr>
     </tbody>
   </table>
 
-  <h2>Лояльность и рекомендации</h2>
+  <h2>Проблемы</h2>
   <table class="q">
     <thead>
       <tr>
@@ -560,36 +569,144 @@ button.task-field-edit:focus-visible {
     </thead>
     <tbody>
       <tr>
-        <td><span class="num">13.</span>За что цените нас больше всего?</td>
-        <td>За <strong>адекватную коммуникацию</strong> — это критично важно при работе с подрядчиком.</td>
+        <td><span class="num">7.</span>Был ли момент, когда что-то шло не так? Что именно произошло?</td>
+        <td>Параллельно несколько изменений/тестов — всё «сломалось», почти месяц без лидов; нельзя понять, что сработало. Договорённость: менять по одному фактору. С вашей стороны не учли риски (обсуждали, но риски не заложили) — откат, потеряны время и деньги.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Ценность</h2>
+  <table class="q">
+    <thead>
+      <tr>
+        <th class="col-q">Вопрос</th>
+        <th class="col-ans">Ответ по транскрипту</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="num">8.</span>За что вы нас цените больше всего? (повтор?)</td>
+        <td>Видит вовлечённость; Юля в чате всегда на подмоге, мотивирована — к ней меньше всего вопросов, ценят в первую очередь её. Открытость: если что-то не нравится — говорят, вы учитываете; ответы в чате ок.</td>
       </tr>
       <tr>
-        <td><span class="num">14.</span>Был ли «вау»-момент?</td>
-        <td>Рано оценивать: прошло мало времени.</td>
+        <td><span class="num">9.</span>В какой момент вы чувствуете, что «вот тут прям хорошо»?</td>
+        <td>Не может вспомнить что-то явно «прям хорошо» / «супер-классное».</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Рост / улучшения</h2>
+  <table class="q">
+    <thead>
+      <tr>
+        <th class="col-q">Вопрос</th>
+        <th class="col-ans">Ответ по транскрипту</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="num">10.</span>Если бы можно было изменить одну вещь в работе с нами — что бы это было?</td>
+        <td>Чаще приходить с инициативами: отчёты, конкурентный анализ, ресёрч («давайте попробуем…»). Сейчас главное, что приходит в голову; связано с вовлечённостью.</td>
       </tr>
       <tr>
-        <td><span class="num">15.</span>Насколько готовы нас порекомендовать?</td>
-        <td><strong>Готова</strong> рекомендовать, если обратятся.</td>
+        <td><span class="num">11.</span>Чего вам сейчас не хватает в нашей работе?</td>
+        <td>По сути повтор п.10: больше инициативы; плюс вовлечённость, демонстрация экспертизы по рынку, объяснение причин связи метрик и РК.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Отчётность</h2>
+  <table class="q">
+    <thead>
+      <tr>
+        <th class="col-q">Вопрос</th>
+        <th class="col-ans">Ответ по транскрипту</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="num">12.</span>Пользуетесь ли вы нашей еженедельной отчетностью?</td>
+        <td>Да, пользуется еженедельной отчётностью.</td>
       </tr>
       <tr>
-        <td><span class="num">16.</span>С кем ещё имеет смысл пообщаться с вашей стороны?</td>
-        <td>Пока нет: руководители сильно загружены.</td>
+        <td><span class="num">13.</span>Что в ней удобно, а что нет?</td>
+        <td>Удобно — динамика по неделям/месяцам; недельные срезы критичны (по дню непонятно, по месяцу поздно). Неудобно — устаревший Excel в одном файле, долго грузится, перегруз; хочется более современного решения (Power BI).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Медиаплан</h2>
+  <table class="q">
+    <thead>
+      <tr>
+        <th class="col-q">Вопрос</th>
+        <th class="col-ans">Ответ по транскрипту</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="num">14.</span>Насколько вам удобно работать с медиапланом?</td>
+        <td>Понятный, основную функцию выполняет. Не любит переусложнённые медиапланы — чем проще, тем лучше.</td>
       </tr>
       <tr>
-        <td><span class="num">17.</span>Есть ли вопросы к нам?</td>
-        <td>Нет.</td>
+        <td><span class="num">15.</span>Что бы вы в нём изменили или упростили?</td>
+        <td>Упрощать некуда; можно улучшить визуально — подсветки/выделения, не только «цифры на белом фоне».</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Запуск</h2>
+  <table class="q">
+    <thead>
+      <tr>
+        <th class="col-q">Вопрос</th>
+        <th class="col-ans">Ответ по транскрипту</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="num">16.</span>Как у вас прошёл запуск с нашей стороны? Было ли что-то непонятно или неудобно?</td>
+        <td>Не застал — пришёл, когда проект уже работал.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Коммуникация</h2>
+  <table class="q">
+    <thead>
+      <tr>
+        <th class="col-q">Вопрос</th>
+        <th class="col-ans">Ответ по транскрипту</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="num">17.</span>Насколько вам комфортно работать с командой? Понятны ли роли внутри команды?</td>
+        <td>Роли понятны; по общению в целом вопросов нет. Не хватает вовлечённости и объяснения причин (связь метрик и РК).</td>
       </tr>
       <tr>
-        <td><span class="num">18.</span>Рекомендовали ли вы нас кому-то?</td>
-        <td>В транскрипте не обсуждалось (короткий созвон).</td>
+        <td><span class="num">18.</span>Что можно улучшить в коммуникации?</td>
+        <td>В самой коммуникации отдельной проблемы нет; улучшать — вовлечённость, экспертность по рынку, глубину аналитики.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Лояльность</h2>
+  <table class="q">
+    <thead>
+      <tr>
+        <th class="col-q">Вопрос</th>
+        <th class="col-ans">Ответ по транскрипту</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="num">19.</span>Рекомендовали ли вы нас кому-то?</td>
+        <td>Не помнит, чтобы рекомендовал; такой необходимости не было.</td>
       </tr>
       <tr>
-        <td><span class="num">19.</span>Если нет — что должно произойти, чтобы вы начали рекомендовать?</td>
-        <td>Не обсуждалось.</td>
-      </tr>
-      <tr>
-        <td><span class="num">20.</span>В какой срок ожидаете улучшения по итогам созвона?</td>
-        <td>Не обсуждалось напрямую; из контекста — цель «хорошо закрыть май» и увидеть эффект по антифроду/спаму.</td>
+        <td><span class="num">20.</span>Если нет — что должно произойти, чтобы вы начали рекомендовать?</td>
+        <td>Чтобы кто-то спросил про агентства — не было истории, что кому-то нужна рекомендация.</td>
       </tr>
     </tbody>
   </table>
@@ -597,14 +714,14 @@ button.task-field-edit:focus-visible {
   <h2 class="tasks-title">Что улучшить в работе агентства (черновик)</h2>
   <p class="muted" style="margin-bottom: 14px;">Коротко — для всей команды. Подробности раскрываются кнопкой «Подробнее». После 10–15 кастдевов соберём всё в одну таблицу и расставим приоритеты.</p>
 
-  <div class="task task-track" data-task-id="task-ssk2-n1" data-default-title="Дожим медиаплана к маю">
+  <div class="task task-track" data-task-id="task-dars-n1" data-default-title="Письменный план при просадке">
     <div class="task-check-row">
     <label class="task-pickup">
-      <input type="checkbox" class="task-cb" data-task-id="task-ssk2-n1" />
+      <input type="checkbox" class="task-cb" data-task-id="task-dars-n1" />
       <span>Взяли в работу</span>
     </label>
     <label class="task-pickup task-pickup-present">
-      <input type="checkbox" class="task-present-cb" data-task-id="task-ssk2-n1" />
+      <input type="checkbox" class="task-present-cb" data-task-id="task-dars-n1" />
       <span>Применили, можно презентовать клиенту</span>
     </label>
     </div>
@@ -629,25 +746,25 @@ button.task-field-edit:focus-visible {
         <input type="text" class="task-meta-input task-meta-input-aspro" autocomplete="off" placeholder="Вставьте URL из Аспро" />
       </div>
     </div>
-    <div class="task-line">Собрать и зафиксировать план «как догоняем медиаплан» с коротким циклом проверок, чтобы май закрыть сильнее по факту, а не только по интеграциям/аудиториям.</div>
+    <div class="task-line">Когда цифры проседают — давать заказчику понятный план: что делаем, зачем и в какие сроки, а не откладывать всё на «посмотрим на следующей неделе».</div>
     <details class="more">
       <summary>Подробнее</summary>
       <div class="more-body">
-        <strong>Что сказал клиент:</strong> медиаплан не всегда выполняется; хотят «подтянуть» и хорошо закрыть май.<br /><br />
-        <strong>Что меняем у себя:</strong> более жёсткий ритм корректировок (что пробуем, что остановили, что усилили) и фиксация причин отклонения от плана.<br /><br />
-        <strong>Зачем:</strong> предсказуемее результат, меньше ощущения, что «много активностей, а план не догоняем».
+        <strong>Что сказал клиент:</strong> не чувствуется, что есть ясный план и конкретные шаги; хочется понимать причины и как реклама связана с цифрами.<br /><br />
+        <strong>Что меняем у себя:</strong> на похожих проектах договориться о простом правиле: если результаты ниже ожиданий — в течение согласованного времени присылаем короткий письменный план (что проверяем, что меняем, как поймём, что сработало). На созвоне не заканчиваем без ясных следующих шагов.<br /><br />
+        <strong>Зачем:</strong> заказчику спокойнее, видно, что ситуацию ведут осознанно, а не «ждём само пройдёт».
       </div>
     </details>
   </div>
 
-  <div class="task task-track" data-task-id="task-ssk2-n2" data-default-title="Эффект по антифроду/спаму">
+  <div class="task task-track" data-task-id="task-dars-n2" data-default-title="Одно сильное изменение за раз">
     <div class="task-check-row">
     <label class="task-pickup">
-      <input type="checkbox" class="task-cb" data-task-id="task-ssk2-n2" />
+      <input type="checkbox" class="task-cb" data-task-id="task-dars-n2" />
       <span>Взяли в работу</span>
     </label>
     <label class="task-pickup task-pickup-present">
-      <input type="checkbox" class="task-present-cb" data-task-id="task-ssk2-n2" />
+      <input type="checkbox" class="task-present-cb" data-task-id="task-dars-n2" />
       <span>Применили, можно презентовать клиенту</span>
     </label>
     </div>
@@ -672,25 +789,25 @@ button.task-field-edit:focus-visible {
         <input type="text" class="task-meta-input task-meta-input-aspro" autocomplete="off" placeholder="Вставьте URL из Аспро" />
       </div>
     </div>
-    <div class="task-line">Сделать понятную «карточку прогресса» по антифроду: что внедрили (сегменты/антифрод‑программы) и какой эффект по качеству лида/спаму ожидаем и фиксируем.</div>
+    <div class="task-line">Не накладывать много правок в рекламе и на сайте одновременно — иначе непонятно, что сработало, и можно надолго потерять лиды.</div>
     <details class="more">
       <summary>Подробнее</summary>
       <div class="more-body">
-        <strong>Что сказал клиент:</strong> по антифроду что-то сделано, но результатов пока мало; хотят лучше результат.<br /><br />
-        <strong>Что меняем у себя:</strong> фиксируем список мер и KPI эффекта (что именно считаем «улучшением»), добавляем короткий апдейт по статусу на созвоне.<br /><br />
-        <strong>Зачем:</strong> меньше ощущения «делаем много, а эффекта не видно».
+        <strong>Что сказал клиент:</strong> несколько изменений разом — почти месяц без лидов, потом откат и потерянное время.<br /><br />
+        <strong>Что меняем у себя:</strong> простой чеклист: за раз одно сильное изменение; если правок несколько — заранее проговорить риски с клиентом и записать в задаче, кто за что отвечает.<br /><br />
+        <strong>Зачем:</strong> меньше резких провалов, проще понять, от чего выросли или упали цифры.
       </div>
     </details>
   </div>
 
-  <div class="task task-track" data-task-id="task-ssk2-n3" data-default-title="Отчёт с CPL/CR и фильтрами">
+  <div class="task task-track" data-task-id="task-dars-n3" data-default-title="Дашборд вместо Excel, недели сохранить">
     <div class="task-check-row">
     <label class="task-pickup">
-      <input type="checkbox" class="task-cb" data-task-id="task-ssk2-n3" />
+      <input type="checkbox" class="task-cb" data-task-id="task-dars-n3" />
       <span>Взяли в работу</span>
     </label>
     <label class="task-pickup task-pickup-present">
-      <input type="checkbox" class="task-present-cb" data-task-id="task-ssk2-n3" />
+      <input type="checkbox" class="task-present-cb" data-task-id="task-dars-n3" />
       <span>Применили, можно презентовать клиенту</span>
     </label>
     </div>
@@ -715,29 +832,29 @@ button.task-field-edit:focus-visible {
         <input type="text" class="task-meta-input task-meta-input-aspro" autocomplete="off" placeholder="Вставьте URL из Аспро" />
       </div>
     </div>
-    <div class="task-line">Довести новую отчётность до состояния «сам себе ответил за 30 секунд»: CPL/CR и прочие метрики, фильтры по периоду и каналу без запросов к команде.</div>
+    <div class="task-line">Перевести отчёт из тяжёлого Excel в удобный экран (дашборд), но оставить смотреть динамику по неделям — без этого клиенту неудобно.</div>
     <details class="more">
       <summary>Подробнее</summary>
       <div class="more-body">
-        <strong>Что сказал клиент:</strong> текущий отчёт простой и узкий; если нужно шире — приходится просить. Новая отчётность нравится, потому что даст больше показателей и быстрый доступ к данным.<br /><br />
-        <strong>Что меняем у себя:</strong> финализируем набор ключевых метрик, делаем фильтры и быстрые срезы стандартом для проекта.<br /><br />
-        <strong>Зачем:</strong> клиент быстрее принимает решения и меньше отвлекает команду точечными вопросами.
+        <strong>Что сказал клиент:</strong> старый файл в Excel тяжёлый и неудобный; ждут новый отчёт в Power BI; по неделям смотреть обязательно нужно.<br /><br />
+        <strong>Что меняем у себя:</strong> один понятный формат отчёта для похожих клиентов; заранее договориться, за сколько дней после готовности подключаем клиента; недельные срезы в отчёте сохраняем.<br /><br />
+        <strong>Зачем:</strong> заказчик быстрее видит картину, меньше ручной возни с таблицами.
       </div>
     </details>
   </div>
 
-  <div class="once task-track" data-task-id="task-ssk2-extra" data-default-title="Показать прогресс в отчёте">
+  <div class="once task-track" data-task-id="task-dars-extra" data-default-title="Инициативы и разбор ВК Хабаровск">
     <div class="task-check-row">
     <label class="task-pickup">
-      <input type="checkbox" class="task-cb" data-task-id="task-ssk2-extra" />
+      <input type="checkbox" class="task-cb" data-task-id="task-dars-extra" />
       <span>Взяли в работу</span>
     </label>
     <label class="task-pickup task-pickup-present">
-      <input type="checkbox" class="task-present-cb" data-task-id="task-ssk2-extra" />
+      <input type="checkbox" class="task-present-cb" data-task-id="task-dars-extra" />
       <span>Применили, можно презентовать клиенту</span>
     </label>
     </div>
-    <div class="once-brief">На заметку</div>
+    <div class="once-brief">На заметку, не в топ‑три</div>
     <div class="task-fields-inline">
       <div class="task-meta-field" data-meta-field="title">
         <div class="task-meta-line">
@@ -759,11 +876,11 @@ button.task-field-edit:focus-visible {
         <input type="text" class="task-meta-input task-meta-input-aspro" autocomplete="off" placeholder="Вставьте URL из Аспро" />
       </div>
     </div>
-    Кастдев короткий, и часть вопросов «рано оценивать». На следующих созвонах удобно фиксировать прогресс по 2–3 ключевым пунктам (медиаплан, антифрод, отчётность), чтобы быстро видеть, что меняется.
+    Чаще приходить к клиенту с идеями сами: разбор конкурентов, рынок, полезные выжимки — без ожидания, что он всё запросит. Отдельно разобрать ситуацию с ВКонтакте в Хабаровске (почему там хуже, чем в других местах) — как отдельную задачу или заметку, не обязательно как правило для всех клиентов сразу.
     <details class="more" style="margin-top:10px;">
       <summary>Подробнее</summary>
       <div class="more-body">
-        Если клиент ещё «не успела ознакомиться» или «слишком мало времени», то помогают короткие маячки прогресса: что изменилось с прошлого раза, какие цифры/срезы добавили, что стало быстрее/понятнее.
+        Клиент просил больше инициативы с вашей стороны (отчёты, исследования, конкуренты). По ВК: у них в Хабаровске долго не получается стабильный результат, при этом в других проектах и у других подрядчиков ВК ведёт себя иначе — имеет смысл вынести в отдельный разбор или инструкцию для таких случаев, а не превращать сразу в общее правило для всего агентства.
       </div>
     </details>
   </div>
@@ -901,6 +1018,93 @@ button.task-field-edit:focus-visible {
     if (!btn) return;
     btn.addEventListener("click", function () {
       exportStateForGit();
+    });
+  }
+
+  function escapeHtml(s) {
+    return String(s || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/\"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function buildGlobalTasksFromPages() {
+    var host = document.getElementById("castdev-global-tasks");
+    if (!host) return Promise.resolve();
+
+    host.innerHTML = "<p class=\"muted\">Загружаю задачи…</p>";
+
+    var rows = Array.prototype.slice.call(document.querySelectorAll("table.q tbody tr"));
+    var sources = [];
+    rows.forEach(function (tr) {
+      var link = tr.querySelector("td.col-link a.btn-open:not(.btn-rec)");
+      if (!link) return;
+      var href = link.getAttribute("href");
+      if (!href || /^https?:\/\//i.test(href)) return;
+
+      var date = (tr.querySelector("td.col-date") || {}).textContent || "";
+      var who = (tr.querySelector("td.col-who") || {}).textContent || "";
+      sources.push({
+        href: href,
+        date: date.trim(),
+        who: who.replace(/\s+/g, " ").trim()
+      });
+    });
+
+    var uniq = [];
+    var seen = {};
+    sources.forEach(function (s) {
+      if (seen[s.href]) return;
+      seen[s.href] = true;
+      uniq.push(s);
+    });
+
+    return Promise.all(
+      uniq.map(function (src) {
+        return fetch(src.href, { cache: "no-store" })
+          .then(function (r) {
+            if (!r.ok) throw new Error("fetch");
+            return r.text();
+          })
+          .then(function (html) {
+            var doc = new DOMParser().parseFromString(html, "text/html");
+            var tasks = Array.prototype.slice.call(doc.querySelectorAll(".task-track[data-task-id]"));
+            return { src: src, tasks: tasks };
+          })
+          .catch(function () {
+            return { src: src, tasks: [] };
+          });
+      })
+    ).then(function (results) {
+      host.innerHTML = "";
+
+      results.forEach(function (r) {
+        if (!r.tasks || !r.tasks.length) return;
+        var group = document.createElement("div");
+        group.className = "castdev-task-group";
+        group.innerHTML =
+          "<h3><a href=\"" +
+          escapeHtml(r.src.href) +
+          "\">" +
+          escapeHtml(r.src.who ? (r.src.who + (r.src.date ? \" · \" + r.src.date : \"\")) : r.src.href) +
+          "</a></h3>";
+        var frag = document.createDocumentFragment();
+        r.tasks.forEach(function (t) {
+          frag.appendChild(document.importNode(t, true));
+        });
+        group.appendChild(frag);
+        host.appendChild(group);
+      });
+
+      if (!host.children.length) {
+        host.innerHTML = "<p class=\"muted\">Задачи не найдены.</p>";
+      }
+
+      applyAllCheckboxes();
+      initTaskMetaFields();
+      refreshAllTaskFields();
     });
   }
 
@@ -1122,11 +1326,17 @@ button.task-field-edit:focus-visible {
 
   function boot() {
     applyAllCheckboxes();
-    initTaskMetaFields();
     wireExportButton();
     loadRemoteStateThen(function () {
       applyAllCheckboxes();
       refreshAllTaskFields();
+    });
+    buildGlobalTasksFromPages().then(function () {
+      // Для страниц кастдевов (не index) задачи уже в DOM
+      if (!document.getElementById("castdev-global-tasks")) {
+        initTaskMetaFields();
+        refreshAllTaskFields();
+      }
     });
   }
 
