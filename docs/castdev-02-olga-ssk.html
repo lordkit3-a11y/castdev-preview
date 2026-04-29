@@ -1088,97 +1088,8 @@ button.task-field-edit:focus-visible {
     });
   }
 
-  function escapeHtml(s) {
-    return String(s || "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/\"/g, "&quot;")
-      .replace(/'/g, "&#39;");
-  }
-
-  function buildGlobalTasksFromPages() {
-    var host = document.getElementById("castdev-global-tasks");
-    if (!host) return Promise.resolve();
-
-    host.innerHTML = "<p class=\"muted\">Загружаю задачи…</p>";
-
-    var rows = Array.prototype.slice.call(document.querySelectorAll("table.q tbody tr"));
-    var sources = [];
-    rows.forEach(function (tr) {
-      var link = tr.querySelector("td.col-link a.btn-open:not(.btn-rec)");
-      if (!link) return;
-      var href = link.getAttribute("href");
-      if (!href || /^https?:\/\//i.test(href)) return;
-
-      var date = (tr.querySelector("td.col-date") || {}).textContent || "";
-      var who = (tr.querySelector("td.col-who") || {}).textContent || "";
-      sources.push({
-        href: href,
-        date: date.trim(),
-        who: who.replace(/\s+/g, " ").trim()
-      });
-    });
-
-    var uniq = [];
-    var seen = {};
-    sources.forEach(function (s) {
-      if (seen[s.href]) return;
-      seen[s.href] = true;
-      uniq.push(s);
-    });
-
-    return Promise.all(
-      uniq.map(function (src) {
-        return fetch(src.href, { cache: "no-store" })
-          .then(function (r) {
-            if (!r.ok) throw new Error("fetch");
-            return r.text();
-          })
-          .then(function (html) {
-            var doc = new DOMParser().parseFromString(html, "text/html");
-            var tasks = Array.prototype.slice.call(doc.querySelectorAll(".task-track[data-task-id]"));
-            return { src: src, tasks: tasks };
-          })
-          .catch(function () {
-            return { src: src, tasks: [] };
-          });
-      })
-    ).then(function (results) {
-      host.innerHTML = "";
-
-      results.forEach(function (r) {
-        if (!r.tasks || !r.tasks.length) return;
-        var group = document.createElement("details");
-        group.className = "castdev-task-group castdev-task-group-details";
-        group.open = false;
-
-        var title = r.src.who ? (r.src.who + (r.src.date ? " · " + r.src.date : "")) : r.src.href;
-        group.innerHTML =
-          "<summary class=\"castdev-task-group-summary\">" +
-          "<a href=\"" +
-          escapeHtml(r.src.href) +
-          "\">" +
-          escapeHtml(title) +
-          "</a>" +
-          "</summary>";
-        var frag = document.createDocumentFragment();
-        r.tasks.forEach(function (t) {
-          frag.appendChild(document.importNode(t, true));
-        });
-        group.appendChild(frag);
-        host.appendChild(group);
-      });
-
-      if (!host.children.length) {
-        host.innerHTML = "<p class=\"muted\">Задачи не найдены.</p>";
-      }
-
-      applyAllCheckboxes();
-      initTaskMetaFields();
-      refreshAllTaskFields();
-    });
-  }
+  // Note: tasks list on index.html is duplicated (embedded) on purpose,
+  // so it works when opening local files via file:// (no fetch).
 
   document.addEventListener("change", function (e) {
     var t = e.target;
@@ -1404,17 +1315,12 @@ button.task-field-edit:focus-visible {
     }
 
     applyAllCheckboxes();
+    initTaskMetaFields();
+    refreshAllTaskFields();
     wireExportButton();
     loadRemoteStateThen(function () {
       applyAllCheckboxes();
       refreshAllTaskFields();
-    });
-    buildGlobalTasksFromPages().then(function () {
-      // Для страниц кастдевов (не index) задачи уже в DOM
-      if (!document.getElementById("castdev-global-tasks")) {
-        initTaskMetaFields();
-        refreshAllTaskFields();
-      }
     });
   }
 
