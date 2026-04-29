@@ -155,6 +155,80 @@ details.castdev-tasks-section[open] > summary::before {
   text-decoration: underline;
 }
 
+.castdev-task-group-actions {
+  margin: 10px 0 12px;
+}
+
+/* Компактная кнопка «Открыть кастдев» внутри группы */
+a.btn-open.btn-open-inline {
+  display: inline-block;
+  width: auto;
+  max-width: 100%;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 8px;
+}
+
+/* Карточки задач на главной (дубли из страниц кастдевов) */
+.task {
+  border: 1px solid #cfd4dc;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin: 10px 0;
+  background: #fafcfb;
+}
+
+.task-line {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+.once {
+  border-left: 4px solid #c9a227;
+  padding: 10px 12px;
+  background: #fffdf5;
+  border-radius: 0 8px 8px 0;
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.once-brief {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #4a3f00;
+}
+
+details.more {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #333;
+}
+
+details.more summary {
+  cursor: pointer;
+  color: #3d5a80;
+  font-weight: 600;
+  list-style-position: outside;
+  user-select: none;
+}
+
+details.more summary:hover {
+  text-decoration: underline;
+}
+
+details.more .more-body {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: #f6f8fb;
+  border-radius: 6px;
+  border: 1px solid #e8ecf2;
+  line-height: 1.55;
+}
+
 .castdev-tasks-section h2 {
   font-size: 1.1rem;
   margin: 0 0 6px;
@@ -687,7 +761,10 @@ button.task-field-edit:focus-visible {
   </table>
 
   <h2 class="tasks-title">Что улучшить в работе агентства (черновик)</h2>
-  <p class="muted" style="margin-bottom: 14px;">Коротко — для всей команды. Подробности раскрываются кнопкой «Подробнее». После 10–15 кастдевов соберём всё в одну таблицу и расставим приоритеты.</p>
+  <p class="muted" style="margin-bottom: 10px;">Коротко — для всей команды. Подробности раскрываются кнопкой «Подробнее». После 10–15 кастдевов соберём всё в одну таблицу и расставим приоритеты.</p>
+  <p class="muted" style="margin-bottom: 14px;">
+    Созвон короткий, сотрудничество ~1.5 месяца — часть вопросов «рано оценивать». Здесь фиксируем только то, что реально прозвучало как боль/ожидание: медиаплан и эффект по антифроду/спаму. По отчётности запросов от клиента сейчас нет.
+  </p>
 
   <div class="task task-track" data-task-id="task-ssk2-n1" data-default-title="Дожим медиаплана к маю">
     <div class="task-check-row">
@@ -771,91 +848,6 @@ button.task-field-edit:focus-visible {
         <strong>Что сказал клиент:</strong> по антифроду что-то сделано, но результатов пока мало; хотят лучше результат.<br /><br />
         <strong>Что меняем у себя:</strong> фиксируем список мер и KPI эффекта (что именно считаем «улучшением»), добавляем короткий апдейт по статусу на созвоне.<br /><br />
         <strong>Зачем:</strong> меньше ощущения «делаем много, а эффекта не видно».
-      </div>
-    </details>
-  </div>
-
-  <div class="task task-track" data-task-id="task-ssk2-n3" data-default-title="Отчёт с CPL/CR и фильтрами">
-    <div class="task-check-row">
-    <label class="task-pickup">
-      <input type="checkbox" class="task-cb" data-task-id="task-ssk2-n3" />
-      <span>Взяли в работу</span>
-    </label>
-    <label class="task-pickup task-pickup-present">
-      <input type="checkbox" class="task-present-cb" data-task-id="task-ssk2-n3" />
-      <span>Применили, можно презентовать клиенту</span>
-    </label>
-    </div>
-    <div class="task-fields-inline">
-      <div class="task-meta-field" data-meta-field="title">
-        <div class="task-meta-line">
-          <span class="task-meta-label">Название задачи</span>
-          <button type="button" class="task-field-edit">Редактировать</button>
-        </div>
-        <div class="task-meta-view"><span class="task-title-display"></span></div>
-        <input type="text" class="task-meta-input task-meta-input-title" autocomplete="off" />
-      </div>
-      <div class="task-meta-field" data-meta-field="aspro">
-        <div class="task-meta-line">
-          <span class="task-meta-label">Ссылка на Аспро</span>
-          <button type="button" class="task-field-edit">Редактировать</button>
-        </div>
-        <div class="task-meta-view task-meta-view-aspro">
-          <a class="task-aspro-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Открыть в Аспро</a>
-          <span class="task-aspro-placeholder">Не указано</span>
-        </div>
-        <input type="text" class="task-meta-input task-meta-input-aspro" autocomplete="off" placeholder="Вставьте URL из Аспро" />
-      </div>
-    </div>
-    <div class="task-line">Довести новую отчётность до состояния «сам себе ответил за 30 секунд»: CPL/CR и прочие метрики, фильтры по периоду и каналу без запросов к команде.</div>
-    <details class="more">
-      <summary>Подробнее</summary>
-      <div class="more-body">
-        <strong>Что сказал клиент:</strong> текущий отчёт простой и узкий; если нужно шире — приходится просить. Новая отчётность нравится, потому что даст больше показателей и быстрый доступ к данным.<br /><br />
-        <strong>Что меняем у себя:</strong> финализируем набор ключевых метрик, делаем фильтры и быстрые срезы стандартом для проекта.<br /><br />
-        <strong>Зачем:</strong> клиент быстрее принимает решения и меньше отвлекает команду точечными вопросами.
-      </div>
-    </details>
-  </div>
-
-  <div class="once task-track" data-task-id="task-ssk2-extra" data-default-title="Показать прогресс в отчёте">
-    <div class="task-check-row">
-    <label class="task-pickup">
-      <input type="checkbox" class="task-cb" data-task-id="task-ssk2-extra" />
-      <span>Взяли в работу</span>
-    </label>
-    <label class="task-pickup task-pickup-present">
-      <input type="checkbox" class="task-present-cb" data-task-id="task-ssk2-extra" />
-      <span>Применили, можно презентовать клиенту</span>
-    </label>
-    </div>
-    <div class="once-brief">На заметку</div>
-    <div class="task-fields-inline">
-      <div class="task-meta-field" data-meta-field="title">
-        <div class="task-meta-line">
-          <span class="task-meta-label">Название задачи</span>
-          <button type="button" class="task-field-edit">Редактировать</button>
-        </div>
-        <div class="task-meta-view"><span class="task-title-display"></span></div>
-        <input type="text" class="task-meta-input task-meta-input-title" autocomplete="off" />
-      </div>
-      <div class="task-meta-field" data-meta-field="aspro">
-        <div class="task-meta-line">
-          <span class="task-meta-label">Ссылка на Аспро</span>
-          <button type="button" class="task-field-edit">Редактировать</button>
-        </div>
-        <div class="task-meta-view task-meta-view-aspro">
-          <a class="task-aspro-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Открыть в Аспро</a>
-          <span class="task-aspro-placeholder">Не указано</span>
-        </div>
-        <input type="text" class="task-meta-input task-meta-input-aspro" autocomplete="off" placeholder="Вставьте URL из Аспро" />
-      </div>
-    </div>
-    Кастдев короткий, и часть вопросов «рано оценивать». На следующих созвонах удобно фиксировать прогресс по 2–3 ключевым пунктам (медиаплан, антифрод, отчётность), чтобы быстро видеть, что меняется.
-    <details class="more" style="margin-top:10px;">
-      <summary>Подробнее</summary>
-      <div class="more-body">
-        Если клиент ещё «не успела ознакомиться» или «слишком мало времени», то помогают короткие маячки прогресса: что изменилось с прошлого раза, какие цифры/срезы добавили, что стало быстрее/понятнее.
       </div>
     </details>
   </div>

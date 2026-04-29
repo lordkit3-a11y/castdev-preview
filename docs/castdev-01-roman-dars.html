@@ -155,6 +155,80 @@ details.castdev-tasks-section[open] > summary::before {
   text-decoration: underline;
 }
 
+.castdev-task-group-actions {
+  margin: 10px 0 12px;
+}
+
+/* Компактная кнопка «Открыть кастдев» внутри группы */
+a.btn-open.btn-open-inline {
+  display: inline-block;
+  width: auto;
+  max-width: 100%;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 8px;
+}
+
+/* Карточки задач на главной (дубли из страниц кастдевов) */
+.task {
+  border: 1px solid #cfd4dc;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin: 10px 0;
+  background: #fafcfb;
+}
+
+.task-line {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+.once {
+  border-left: 4px solid #c9a227;
+  padding: 10px 12px;
+  background: #fffdf5;
+  border-radius: 0 8px 8px 0;
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.once-brief {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #4a3f00;
+}
+
+details.more {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #333;
+}
+
+details.more summary {
+  cursor: pointer;
+  color: #3d5a80;
+  font-weight: 600;
+  list-style-position: outside;
+  user-select: none;
+}
+
+details.more summary:hover {
+  text-decoration: underline;
+}
+
+details.more .more-body {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: #f6f8fb;
+  border-radius: 6px;
+  border: 1px solid #e8ecf2;
+  line-height: 1.55;
+}
+
 .castdev-tasks-section h2 {
   font-size: 1.1rem;
   margin: 0 0 6px;
